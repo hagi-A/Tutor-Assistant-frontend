@@ -1,0 +1,74 @@
+/* .findtutor{
+    background-image: url("../../../public/images/little-boy-listening-his-teacher-through-headphones.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+    padding-top: 20%;
+    padding-right: 50px;
+    color: #fff;
+} */
+
+.bg-image {
+    background-image: url('../../../images/findtutorImage.jpg');
+  }
+.bg-img{
+    background-image: url('../../../images/becometutor.jpg');
+}
+  .hero #heading h3 {
+    color: #fff;
+  }
+  .hero #heading {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+  }
+  @media screen and (max-width: 768px) {
+    .margin {
+      height: 40vh;
+    }
+    .hero {
+      background-position: right;
+      padding-top: 50%;
+      height: 80vh;
+    }
+    .hero .row {
+      width: 100%;
+    }
+  }
+
+  .grid-item {
+    /* Your existing styles for individual grid items */
+    position: relative;
+  }
+  
+  .overlay-text {
+    /* Styles for the text overlay */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2); /* Adjust the opacity and color as per your preference */
+    color: #fff; /* Text color */
+    font-size: 18px; /* Text font size */
+    opacity: 0; /* Initially, the text is hidden */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition effect */
+  }
+  
+  .grid-item:hover .overlay-text {
+    cursor: pointer;
+    opacity: 1; /* Show the text on hover */
+  }
+  .grid-item:hover{
+    @apply grayscale scale-110 duration-150
+    transition-all
+    
+  }
