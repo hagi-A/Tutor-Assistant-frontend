@@ -1,66 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLogin } from "../../hooks/useLogin";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { FaGoogle } from "react-icons/fa6";
-import loginImage from "../../images/loginImage.jpg"
+import loginImage from "../../images/loginImage.jpg";
+import PasswordResetModal from "./ForgotPasswordModal";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, error, isLoading } = useLogin();
   const { user } = useAuthContext();
-  const selectedRole = "ggggggg";
+  // const selectedRole = "ggggggg";
+  const [selectedRole, setSelectedRole] = useState(""); // Default role is empty
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const role = searchParams.get("role");
+
+    if (role === "Tutor") {
+      setSelectedRole("Tutor");
+    } else {
+      setSelectedRole(""); // Set the role to empty for all other cases
+    }
+  }, [location.search]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await login(username, email, password)
-     
-        const response = await fetch('/api/user/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, email, password }),
-        });
-        const data = await response.json();
-    
-        const token = data.token;
-        localStorage.setItem("token", token);
-        const role = data.selectedRole;
-        // console.log(data)
-        
-        if (role === "Parent") {
-          navigate("/parent");
-          
-        } 
-        // else if (role === "Admin") {
-        //   navigate("/admin");
-          
-        // } 
-        else if (role === "Tutor") {
-          navigate("/tutorRegistration");
-         
-        } else if (role === "Student") {
-          console.log("tt isin");
-          navigate("/student");
-          
-        } 
-        // else if (role === "Supervisor") {
-          
-        //   navigate("/supervisor");
-          
-        // } 
-        } catch (error) {
-          console.error(error);
-        }
-    
-      
-    
+      await login(username, email, password);
+
+      const response = await fetch("/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+      const data = await response.json();
+
+      const token = data.token;
+      localStorage.setItem("token", token);
+      const role = data.selectedRole;
+      // console.log(data)
+
+      if (role === "Parent") {
+        navigate("/parent");
+      }
+      // else if (role === "Admin") {
+      //   navigate("/admin");
+
+      // }
+      else if (role === "Tutor") {
+        navigate("/tutorRegistration");
+      } else if (role === "Student") {
+        console.log("tt isin");
+        navigate("/student");
+      }
+      // else if (role === "Supervisor") {
+
+      //   navigate("/supervisor");
+
+      // }
+    } catch (error) {
+      console.error(error);
+    }
+
     // await login(username, email, password);
   };
 
@@ -121,9 +139,27 @@ const Login = () => {
                 <span class="font-bold text-md">Forgot password</span>
               </div> */}
 
+              {/* <button
+                onClick={openModal}
+                type="button"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right"
+              >
+                Forgot Password
+              </button>
+              <PasswordResetModal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+              /> */}
+              <Link
+                to={"/forgotPassword"}
+                className="text-cyan-700 font-light float-right hover:text-cyan-400"
+              >
+                Forgot Password
+              </Link>
+
               <button
                 disabled={isLoading}
-                className="w-full bg-black text-white p-2 rounded-lg mb-2 mt-2 hover:text-violet-400 hover:border hover:border-violet-400"
+                className="w-full bg-cyan-600 text-white p-2 rounded-lg mb-2 mt-2 hover:text-white hover:border hover:bg-cyan-400"
               >
                 Login
               </button>
@@ -134,21 +170,22 @@ const Login = () => {
               </button>
               <div class="text-center text-gray-400 mb-0">
                 Dont'have an account?
-                <Link to="/signup" className="font-bold text-black">Sign up</Link>
+                <Link to="/signup" className="font-bold text-black">
+                  Sign up
+                </Link>
                 {/* <span class="font-bold text-black">Sign up for free</span> */}
               </div>
             </form>
-           {/* right side */}
-        
+            {/* right side */}
           </div>
           <div className="relative">
-          <img
-            src={loginImage}
-            alt="img"
-            class="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
-          />
-          {/* <!-- text on image  --> */}
-          {/* <div
+            <img
+              src={loginImage}
+              alt="img"
+              class="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
+            />
+            {/* <!-- text on image  --> */}
+            {/* <div
             class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"
           >
             <span class="text-white text-xl"
@@ -156,7 +193,7 @@ const Login = () => {
               and can't <br />imagine working without it."
             </span>
           </div> */}
-        </div>
+          </div>
         </div>
       </div>
     </>

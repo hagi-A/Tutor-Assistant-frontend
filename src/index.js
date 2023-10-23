@@ -6,7 +6,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import { initReactI18next } from 'react-i18next';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
+// import ChatProvider from "./context/ChatProvider";
 // Import your translation files
 import enTranslation from './locals/en.json';
 import amhTranslation from './locals/amh.json';
@@ -34,7 +34,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <App />
+      {/* <ChatProvider> */}
+        <App />
+      {/* </ChatProvider> */}
     </AuthContextProvider>
   </React.StrictMode>
 );

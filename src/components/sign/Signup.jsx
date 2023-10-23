@@ -8,7 +8,8 @@ import loginImage from "../../images/loginImage.jpg";
 const Signup = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const initialRole = queryParams.get("role") || "Tutor";
+  // const initialRole = queryParams.get("role") || "Tutor";
+  const initialRole = queryParams.get("role");
 
   const navigate = useNavigate();
   const [username, setUserName] = useState("");
@@ -16,9 +17,15 @@ const Signup = () => {
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const { signup, error, isLoading } = useSignup();
+  const [showTutorOption, setShowTutorOption] = useState(true);
+
+  const handleFindTutorNow = () => {
+    setShowTutorOption(false); // Hide the "Tutor" option
+  };
 
   // const { user } = useAuthContext();
-  const [selectedRole, setSelectedRole] = useState(initialRole);
+  // const [selectedRole, setSelectedRole] = useState(initialRole);
+  const [selectedRole, setSelectedRole] = useState(initialRole || ""); // Initialize with the provided role
 
   // const handleRoleChange = (e) => {
   //   setSelectedRole(e.target.value);
@@ -52,20 +59,13 @@ const Signup = () => {
 
       if (selectedRole === "Parent") {
         navigate("/parent");
-       }
-      //  else if (selectedRole === "Admin") {
-      //   console.log("tt isin");
-      //   navigate("/admin");
-      // } 
+      }
       else if (selectedRole === "Tutor") {
         navigate("/tutorRegistration");
       } else if (selectedRole === "Student") {
         console.log("tt isin");
         navigate("/student");
-      } 
-      // else if (selectedRole === "Supervisor") {
-      //   navigate("/supervisor");
-      // }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -136,14 +136,10 @@ const Signup = () => {
                   onChange={(e) => setSelectedRole(e.target.value)}
                   className="w-full p-2 border border-violet-400 rounded-md focus:ring focus:ring-blue-400"
                 >
-                  {selectedRole === "Tutor" ? (
-                    <option value="Tutor">Tutor</option>
-                  ) : (
-                    <>
-                      <option value="Student">Student</option>
-                      <option value="Parent">Parent</option>
-                    </>
-                  )}
+                  <option value="">Select Role</option>
+                  <option value="Tutor">Tutor</option>
+                  <option value="Student">Student</option>
+                  <option value="Parent">Parent</option>
                 </select>
               </div>
               {/* <div class="flex justify-between w-full py-4">
@@ -195,3 +191,19 @@ const Signup = () => {
 };
 
 export default Signup;
+{
+  /* <select
+                  value={selectedRole}
+                  onChange={(e) => setSelectedRole(e.target.value)}
+                  className="w-full p-2 border border-violet-400 rounded-md focus:ring focus:ring-blue-400"
+                >
+                  {selectedRole === "Tutor" ? (
+                    <option value="Tutor">Tutor</option>
+                  ) : (
+                    <>
+                      <option value="Student">Student</option>
+                      <option value="Parent">Parent</option>
+                    </>
+                  )}
+                </select> */
+}

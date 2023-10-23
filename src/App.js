@@ -7,7 +7,6 @@ import About from './components/pages/about/About'
 import FindTutor from './components/pages/findtutor/FIndTutor'
 import BecomeTutor from './components/pages/becometutor/BecomeTutor'
 import Price from './components/pages/pricing/Price'
-
 import Login from './components/sign/Login'
 import Signup from './components/sign/Signup'
 // import AdminLogin from './components/sign/AdminLogin'
@@ -23,24 +22,27 @@ import TutorPage from './components/tutor/TutorPage'
 import RegistrationPage from './components/tutor/tutorRegister/RegistrationPage'
 import ContactUs from './components/common/footer/ContactUs'
 import TutorRegistration from './components/tutor/tutorRegister/TutorRegistration'
+import ChatPage from './components/chatPage/ChatPage'
+import ForgotPassword from './components/sign/ForgotPassword'
+import ResetPassword from './components/sign/ResetPassword'
 // import Main from './components/admin/Main'
 
 const App = () => {
   // const { user } = useAuthContext()
 
   return (
-    
-      <>
+    <>
       <BrowserRouter>
-      {/* <Loading/> */}
+        {/* <Loading/> */}
+
         <Routes>
           {/* <Route  path="/" element={user ? <Home/> : <Navigate to = "/login"/>} /> */}
-          <Route  path="/" element={<Home/>} />
-          <Route  path="/about" element={<About/>} />
-          <Route  path="/findTutor" element={<FindTutor/>} />
-          <Route  path="/becomeTutor" element={<BecomeTutor/>} />
-          <Route  path="/pricing" element={<Price/>} />
-          <Route  path="/contactUs" element={<ContactUs />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/findTutor" element={<FindTutor />} />
+          <Route path="/becomeTutor" element={<BecomeTutor />} />
+          <Route path="/pricing" element={<Price />} />
+          <Route path="/contactUs" element={<ContactUs />} />
           {/* <Route  path="/login" element={!user ? <Login/> : <Navigate to= "/"/>} />
           <Route  path="/signup" element={!user ? <Signup/> : <Navigate to = "/"/>} /> */}
 
@@ -49,28 +51,26 @@ const App = () => {
           {/* <Route path="/AdminLogin" element={<AdminLogin />} /> */}
 
           {/* <Route  path="/admin" element={<AdminPage/>} /> */}
-          <Route  path="/parent" element={<ParentPage/>} />
-          <Route  path="/student" element={<StudentPage/>} />
-          <Route  path="/tutor" element={<TutorPage/>} />
-          <Route  path="/supervisor" element={<SupervisorPage/>} />
+          <Route path="/parent" element={<ParentPage />} />
+          <Route path="/student" element={<StudentPage />} />
+          <Route path="/tutor" element={<TutorPage />} />
+          <Route path="/supervisor" element={<SupervisorPage />} />
 
-          <Route  path="/tutorRegistration" element={<TutorRegistration />} />
+          {/* <Route  path="/tutorRegistration" element={<TutorRegistration />} /> */}
 
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+
+          <Route path="/chats" element={<ChatPage />} />
           {/* <Route path='/admin' element={<App />} />
                 <Route index element={<Main />} />  */}
-            
 
-
-        {/* <Route path='/admin' element={<ProtectedRoute/>}/> */}
-
-
+          {/* <Route path='/admin' element={<ProtectedRoute/>}/> */}
         </Routes>
         {/* <Footer/> */}
       </BrowserRouter>
-        
-      </>
-   
-  )
+    </>
+  );
 }
 
 export default App;
