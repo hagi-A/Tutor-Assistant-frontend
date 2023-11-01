@@ -1,6 +1,6 @@
-/* .bg-images {
-    
-    /* top: 0;
+.bg-register-image {
+    background-image: url('../../../images/tutorRegistrationBgImage.jpg');
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;
@@ -8,10 +8,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* backdrop-filter: blur(50px); Adjust the blur intensity as needed */
-    /* background-color: rgba(0, 0, 0, 0.1); Adjust the opacity and color as needed */ 
-  /* }
-  *{
+    backdrop-filter: blur(50px); 
+    background-color: rgba(0, 0, 0, 0.1);  
+}
+  /* *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -24,9 +24,9 @@ body{
     align-items: center;
     background-image: url('../../../images/tutorRegistrationBgImage.jpg');
     background-size: fixed;
-}
+} */
 
-.container{
+/* .container{
     width: 100%;
     max-width: 650px;
     background: rgba(0, 0, 0, 0.5);
@@ -34,7 +34,7 @@ body{
     margin: 0 28px;
     border-radius: 10px;
     box-shadow: inset -2px 2px 2px white;
-}
+} */
 
 .form-title{
     font-size: 26px;
@@ -42,8 +42,8 @@ body{
     text-align: center;
     padding-bottom: 6px;
     color: white;
-    text-shadow: 2px 2px 2px black;
-    border-bottom: solid 1px white;
+    /* text-shadow: 2px 2px 2px black; */
+    border-bottom: solid 2px rgb(72, 199, 218);
 }
 
 .main-user-info{
@@ -77,15 +77,17 @@ body{
     width: 95%;
     border-radius: 7px;
     outline: none;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     padding: 0 10px;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .gender-title{
     color:white;
     font-size: 24px;
     font-weight: 600;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid rgb(72, 199, 218);
+    justify-content: left;
 }
 
 .gender-category{
@@ -151,4 +153,4 @@ body{
     .main-user-info::-webkit-scrollbar{
         width: 0;
     }
-} */
+}

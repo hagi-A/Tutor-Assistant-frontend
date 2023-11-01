@@ -4,7 +4,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { FaGoogle } from "react-icons/fa6";
 import loginImage from "../../images/loginImage.jpg";
-import PasswordResetModal from "./ForgotPasswordModal";
+// import PasswordResetModal from "./ForgotPasswordModal";
+import "react-toastify/dist/ReactToastify.css";
+import { showToast } from "../../utils/toastUtils";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,6 +52,7 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, email, password }),
+        
       });
       const data = await response.json();
 
@@ -57,6 +61,8 @@ const Login = () => {
       const role = data.selectedRole;
       // console.log(data)
 
+     
+      
       if (role === "Parent") {
         navigate("/parent");
       }
@@ -77,8 +83,9 @@ const Login = () => {
       // }
     } catch (error) {
       console.error(error);
+      showToast(error, "error");
     }
-
+ showToast("Login successful", "success");
     // await login(username, email, password);
   };
 

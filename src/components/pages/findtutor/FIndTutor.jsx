@@ -6,16 +6,52 @@ import Header from "../../common/heading/Header";
 import AvailableTutors from "./AvailableTutors";
 import FindTutorNote from "./FindTutorNote.";
 import SearchBar from "./SearchBar"; // Import the SearchBar component
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import Dashboard from "../../chatPage/components/Dashboard";
+import { FaComment } from "react-icons/fa";
 
-const FindTutor = () => {
+function FindTutor() {
   const [searchResults, setSearchResults] = useState([]);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const navigate = useNavigate(); 
 
-  const handleSearch = (query) => {
-    // Implement your search logic here and update the search results state
-    // For example, fetch data from an API or filter local data
-    setSearchResults(/* Search results based on the query */);
+  const toggleChat = () => {
+    setIsChatOpen(!isChatOpen);
+    // Directly navigate to the Dashboard component
+    // navigate("/chatPage");
   };
+  const closeChat = () => {
+    setIsChatOpen(false);
+    // navigate("/findTutor");
+  };
+
+  const handleSelectUser = (userId) => {
+    // Use the selected user's ID to send a notification
+    const notificationData = {
+      title: "New Notification",
+      message: "You have a new notification from a user.",
+      userId: userId, // The selected user's ID
+    };
+
+    // Make an API request to create and send the notification
+    axios
+      .post("/api/notifications", notificationData)
+      .then((response) => {
+        // Handle success (e.g., show a success message)
+        console.log("Notification created and sent:", response.data);
+      })
+      .catch((error) => {
+        // Handle errors (e.g., show an error message)
+        console.error("Error creating and sending the notification:", error);
+      });
+  };
+
+  // const handleSearch = (query) => {
+  //   // Implement your search logic here and update the search results state
+  //   // For example, fetch data from an API or filter local data
+  //   setSearchResults(/* Search results based on the query */);
+  // };
 
   // Determine the desired role based on some condition
   const isParent = true; // Change this condition as needed
@@ -32,7 +68,8 @@ const FindTutor = () => {
         <section className="bg-cover bg-fixed  top-0 left-0 z-0 w-full h-screen pt-20 pr-50 text-white">
           <div className="container">
             <div>
-              <SearchBar onSearch={handleSearch} />
+              {/* // eslint-disable-next-line no-undef */}
+              {/* <SearchBar onSelectUser={handleSelectUser} /> */}
               {/* <Title  title='"EMPOWERING LEARNING BEYOND THE CLASSROOM"'/> */}
               {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste necessitatibus dolorum pariatur, repellat aperiam sequi eos magni facere sunt, 
                 distinctio sapiente quasi fugiat illum quia nulla laborum doloremque, expedita nam.</p> */}
@@ -42,15 +79,33 @@ const FindTutor = () => {
                 </div> */}
             </div>
           </div>
-          <Link to={signupURL}>
+          <Link
+            to={signupURL}
+            className=" ml-20 cursor-pointer font-sans border border-cyan-800 text-white bg-transparent rounded-full font-light text-2xl md:text-sm tracking-wide md:px-9 px-7 py-3"
+          >
             <button>Find Tutor Now</button>
           </Link>
         </section>
+        <div className="flex justify-end">
+          <button
+            className="bg-cyan-700 w-16  float-right text-white rounded-full p-2 fixed bottom-4 right-4"
+            onClick={toggleChat}
+          >
+            <FaComment className="text-3xl text-teal-200 flex justify-center" />
+          </button>
+          {/* <Dashboard
+            isOpen={isChatOpen}
+            toggleChat={toggleChat}
+            closeChat={closeChat}
+          /> */}
+          {isChatOpen && <Dashboard toggleChat={toggleChat} />}
+          {/* <Dashboard isOpen={isChatOpen} toggleChat={toggleChat} /> */}
+        </div>
+        <div className="">
+          <FindTutorNote />
+          <AvailableTutors />
+        </div>
       </section>
-      <div className="mt-9">
-        <FindTutorNote />
-        <AvailableTutors />
-      </div>
     </>
   );
 };

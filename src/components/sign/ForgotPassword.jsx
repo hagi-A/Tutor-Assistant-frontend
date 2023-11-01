@@ -5,6 +5,9 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import forgotpassword from "../../images/forgotpassword.jpg";
 import axios from 'axios'
 
+import "react-toastify/dist/ReactToastify.css";
+import { showToast } from "../../utils/toastUtils";
+
 const ForgotPassword = () => {
   const navigate = useNavigate();
 //   const location = useLocation();
@@ -42,9 +45,11 @@ const ForgotPassword = () => {
           .then((res) => {
             if (res.data.Status === "Success") {
               navigate("/login");
+              showToast("Reset Password Link sent Via Email Successfully", "info");
             }
           })
-          .catch((err) => console.log(err));
+        .catch((err) => console.log(err));
+      // showToast("Error Occured sending Link", "error");
         
         
         

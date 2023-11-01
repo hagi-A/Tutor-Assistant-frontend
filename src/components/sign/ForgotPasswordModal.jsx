@@ -27,7 +27,9 @@ function PasswordResetModal({ isOpen, onRequestClose }) {
         setMessage(
           "Password reset initiated. Check your email for further instructions."
         );
+        
       }
+      showToast("Reset Password Successfully", "success");
     } catch (error) {
       setMessage("An error occurred while initiating the password reset.");
     }

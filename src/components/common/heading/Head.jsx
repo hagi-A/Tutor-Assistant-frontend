@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLogout } from "../../../hooks/useLogout";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import userProfile from "../../../images/userProfile.png";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../../LanguageSelector";
+import { FaComment } from "react-icons/fa";
+import ChatPage from '../../chatPage/ChatPage'
+import "react-toastify/dist/ReactToastify.css";
+import { showToast } from "../../../utils/toastUtils";
 
 const Head = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
   const { t } = useTranslation();
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const handleChatClick = () => {
+    setIsChatOpen(true);
+  };
 
   const handleClick = () => {
+    showToast("Logged out", "info");
     logout();
   };
   return (
@@ -32,11 +42,17 @@ const Head = () => {
             {user && (
               <div className="flex items-center ml-9">
                 {user.profileImage ? (
-                  <img
-                    src={user.profileImage}
-                    alt={user.name}
-                    className="w-12 h-12 rounded-full mr-4 object-cover"
-                  />
+                  <>
+                    <button onClick={handleChatClick}>
+                      <FaComment />
+                    </button>
+                    {isChatOpen && <ChatPage />}
+                    <img
+                      src={user.profileImage}
+                      alt={user.name}
+                      className="w-12 h-12 rounded-full mr-4 object-cover"
+                    />
+                  </>
                 ) : (
                   <img
                     src={userProfile}

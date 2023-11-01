@@ -63,8 +63,13 @@ const BecomeTutor = () => {
         <section className="bg-cover bg-fixed  top-0 left-0 z-0 w-full h-screen pt-20 pr-50 text-white">
           <div className="container">
             <div>
-              <Link to="/signup?role=Tutor">
-                <button>Become a Tutor</button>
+              <Link
+                to="/tutorRegistration"
+                className=" ml-4 cursor-pointer font-sans border border-slate-300 text-white bg-transparent rounded-full font-light text-2xl md:text-sm tracking-wide md:px-9 px-7 py-3"
+              >
+                <button >
+                  Become a Tutor
+                </button>
               </Link>
             </div>
           </div>
@@ -97,7 +102,7 @@ const BecomeTutor = () => {
                   </div>
                 </div>
                 <div className="text-cyan-800 text-xl ">
-                {isMobileView ? "👇" : "👉"}
+                  {isMobileView ? "👇" : "👉"}
                 </div>
               </>
             ))}

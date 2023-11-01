@@ -19,13 +19,19 @@ import ParentPage from './components/pages/parent/ParentPage'
 import StudentPage from './components/student/StudentPage'
 import SupervisorPage from './components/pages/supervisor/SupervisorPage'
 import TutorPage from './components/tutor/TutorPage'
-import RegistrationPage from './components/tutor/tutorRegister/RegistrationPage'
+// import RegistrationPage from './components/tutor/tutorRegister/RegistrationPage'
 import ContactUs from './components/common/footer/ContactUs'
 import TutorRegistration from './components/tutor/tutorRegister/TutorRegistration'
 import ChatPage from './components/chatPage/ChatPage'
 import ForgotPassword from './components/sign/ForgotPassword'
 import ResetPassword from './components/sign/ResetPassword'
+import SideDrawer from './components/chatPage/miscellaneous/SideDrawer'
 // import Main from './components/admin/Main'
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Dashboard from './components/chatPage/components/Dashboard'
+import WaitPage from './components/tutor/tutorRegister/WaitPage'
 
 const App = () => {
   // const { user } = useAuthContext()
@@ -33,8 +39,6 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        {/* <Loading/> */}
-
         <Routes>
           {/* <Route  path="/" element={user ? <Home/> : <Navigate to = "/login"/>} /> */}
           <Route path="/" element={<Home />} />
@@ -56,19 +60,24 @@ const App = () => {
           <Route path="/tutor" element={<TutorPage />} />
           <Route path="/supervisor" element={<SupervisorPage />} />
 
-          {/* <Route  path="/tutorRegistration" element={<TutorRegistration />} /> */}
+          <Route path="/tutorRegistration" element={<TutorRegistration />} />
+          <Route path="/waitPage" element={<WaitPage />} />
 
           <Route path="/forgotPassword" element={<ForgotPassword />} />
-          <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
+          <Route
+            path="/reset-password/:id/:token"
+            element={<ResetPassword />}
+          />
 
-          <Route path="/chats" element={<ChatPage />} />
+          <Route path="/chatPage" element={<Dashboard />} />
+          {/* <Route path="/chats/sidebar" element={<SideDrawer />} /> */}
           {/* <Route path='/admin' element={<App />} />
                 <Route index element={<Main />} />  */}
 
           {/* <Route path='/admin' element={<ProtectedRoute/>}/> */}
         </Routes>
-        {/* <Footer/> */}
       </BrowserRouter>
+      <ToastContainer />
     </>
   );
 }
