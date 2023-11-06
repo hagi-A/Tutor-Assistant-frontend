@@ -32,6 +32,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from './components/chatPage/components/Dashboard'
 import WaitPage from './components/tutor/tutorRegister/WaitPage'
+import ProfilePage from './components/tutor/ProfilePage'
 
 const App = () => {
   // const { user } = useAuthContext()
@@ -70,6 +71,8 @@ const App = () => {
           />
 
           <Route path="/chatPage" element={<Dashboard />} />
+          <Route path="/profilePage" element={<ProfilePage />} />
+
           {/* <Route path="/chats/sidebar" element={<SideDrawer />} /> */}
           {/* <Route path='/admin' element={<App />} />
                 <Route index element={<Main />} />  */}
