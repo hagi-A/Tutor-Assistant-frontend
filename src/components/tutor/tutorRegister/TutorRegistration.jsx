@@ -3,6 +3,10 @@ import "./tutorStyle.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import MultiSelect from "react-multiple-select-dropdown-lite";
+import "react-multiple-select-dropdown-lite/dist/index.css";
+import "react-toastify/dist/ReactToastify.css";
+import { showToast } from "../../../utils/toastUtils";
 
 const TutorRegistration = () => {
   const navigate = useNavigate();
@@ -16,13 +20,43 @@ const TutorRegistration = () => {
     profession: "",
     location: "",
     phoneNumber: "",
-    ueeeResult: "",
     majorTaken: "",
-    cgpa: "",
-    price: "",
-    gradeLevel: "",
+    gradeLevel: [],
     // Add more form fields and their default values here...
   });
+  // const [value, setvalue] = useState("");
+const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const handleSelectChange = (values, e) => {
+    // const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+    // setSelectedOptions(selectedValues);
+    const gradeLevel = values.split(', ');
+    // for (let i = 0, l = event.length; i < l; i += 1) {
+    //   value.push(event[i].value);
+    // }
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      gradeLevel: JSON.stringify(gradeLevel),
+    }));
+    console.log(gradeLevel);
+
+  };
+  // const handleOnChange = (selectedValues) => {
+  //   // Update the gradeLevel field in formData with the selected values
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     gradeLevel: selectedValues,
+  //   }));
+  //   console.log(selectedValues);
+  // };
+
+  const options = [
+    { label: "Kindergarten", value: "Kindergarten" },
+    { label: "Elementary", value: "Elementary" },
+    { label: "Middle School", value: "Middle School" },
+    { label: "High School", value: "High School" },
+    { label: "College", value: "College" },
+  ];
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -78,33 +112,55 @@ const TutorRegistration = () => {
 
     // const formdatafinal = new FormData();
     //   formdatafinal.append("cvs", formdata);
-   let success = false; // Flag to track the success of the API call
+    let success = false; // Flag to track the success of the API call
 
-   try {
-     const result = await axios.post("/api/files/images", formData, {
-       headers: { "Content-Type": "multipart/form-data" },
-     });
-     console.log(result.data);
+    try {
+      const result = await axios.post("/api/files/images", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+        // body: JSON.parse(JSON.stringify({ formData })),
+      });
+      // Convert selectedOptions into JSON format
+      // const jsonData = JSON.stringify({ selectedOptions });
 
-     // If successful, set the success flag to true
-     success = true;
-   } catch (error) {
-     if (error.response) {
-       // If there is an error response from the server
-       setError(error.response.data.message); // Set error message in state
-     } else if (error.request) {
-       // Handle request error
-       setError("No response received");
-     } else {
-       // Handle other errors
-       setError("Error occurred: " + error.message);
-     }
-   }
-
-   if (success) {
-     // If the API call was successful, navigate to the waitPage
-    //  navigate("/waitPage");
-   }
+      // Send jsonData to the server or perform other actions
+      // console.log("JSON Data:", jsonData);
+      console.log(result.data);
+      showToast("Register successful", "success");
+      showToast(
+        "Please wait till Your request is reviewed with in two work days",
+        "info"
+      );
+      // If successful, set the success flag to true
+      success = true;
+    } catch (error) {
+      if (error.response) {
+        // If there is an error response from the server
+        setError(error.response.data.message); // Set error message in state
+      } else if (error.request) {
+        // Handle request error
+        setError("No response received");
+        showToast(error.request, "error");
+      } else {
+        // Handle other errors
+        setError("Error occurred: " + error.message);
+        showToast(error, "error");
+      }
+    }
+    // Check if gradeLevel is not selected (empty string or empty array)
+    // if (
+    //   !formData.gradeLevel ||
+    //   (Array.isArray(formData.gradeLevel) && formData.gradeLevel.length === 0)
+    // ) {
+    //   // If not selected, show an error message
+    //   console.error("Please Select Grade Level");
+    //   // You might also set an error state to display the error in your UI
+    //   // setError('Please Select Grade Level');
+    //   return; // Prevent further form submission
+    // }
+    if (success) {
+      // If the API call was successful, navigate to the waitPage
+      //  navigate("/waitPage");
+    }
 
     // {
     //   ...formData,
@@ -197,9 +253,9 @@ const TutorRegistration = () => {
                     onChange={handleFormChange}
                     className="w-full h-10 rounded-lg border bg-black bg-opacity-50 border-cyan-600 outline-none px-4"
                   >
-                    <option value="teacher">Teacher</option>
-                    <option value="student">Student</option>
                     <option value="other">Other</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
                   </select>
                 </div>
 
@@ -225,17 +281,7 @@ const TutorRegistration = () => {
                     className="border border-cyan-600 text-white"
                   />
                 </div>
-                <div className="user-input-box">
-                  <label htmlFor="ueeeResult">Your Grade 12 UEEE result</label>
-                  <input
-                    type="number"
-                    id="ueeeResult"
-                    value={formData.ueeeResult}
-                    onChange={handleFormChange}
-                    placeholder="350"
-                    className="border border-cyan-600 text-white"
-                  />
-                </div>
+
                 <div className="user-input-box">
                   <label htmlFor="majorTaken">
                     What Major are you taking/taken?
@@ -250,35 +296,22 @@ const TutorRegistration = () => {
                   />
                 </div>
                 <div className="user-input-box">
-                  <label htmlFor="cgpa">Your CGPA</label>
-                  <input
-                    type="number"
-                    id="cgpa"
-                    value={formData.cgpa}
-                    onChange={handleFormChange}
-                    placeholder="2.5"
-                    className="border border-cyan-600 text-white"
-                  />
-                </div>
-                <div className="user-input-box">
-                  <label htmlFor="price">Price Rate per Hour</label>
-                  <input
-                    type="number"
-                    id="price"
-                    value={formData.price}
-                    onChange={handleFormChange}
-                    placeholder="250 ETB"
-                    className="border border-cyan-600 text-white"
-                  />
-                </div>
-                <div className="user-input-box">
                   <label htmlFor="gradeLevel">
                     Garde level you want to Tutor?
                   </label>
-                  <select
+                  <MultiSelect
+                    id="gradeLevel"
+                    onChange={handleSelectChange}
+                    value={selectedOptions}
+                    // value={formData.gradeLevel}
+                    options={options}
+                    // className="w-full rounded-lg border  border-cyan-500 outline-none px-4"
+                  />
+                  {/* <select
                     id="gradeLevel"
                     value={formData.gradeLevel}
                     onChange={handleFormChange}
+                    // multiple // Allow multiple selections
                     className="w-full h-10 rounded-lg border bg-black bg-opacity-50 border-cyan-500 outline-none px-4"
                   >
                     <option value="Kindergarten">Kindergarten</option>
@@ -286,19 +319,23 @@ const TutorRegistration = () => {
                     <option value="Middle School">Middle School</option>
                     <option value="High School">High School</option>
                     <option value="College">College</option>
-                  </select>
+                  </select> */}
                 </div>
                 {/* File and Image uploaders */}
                 <div className="user-input-box">
                   <label>
                     Upload CVs:{" "}
                     <span className="text-yellow-400">
-                      Must contain Transcript, Grade 10 and 12 and CGPA result{" "}
+                      {formData.profession === "teacher"
+                        ? "Must upload a single PDF file that includes your Curriculum Vitae (CV), Degree Certificate, and Degree Grade Report."
+                        : formData.profession === "student"
+                        ? "Required to upload a single PDF file containing your Grade 12 result Certificate and Curriculum Vitae (CV)"
+                        : "Must upload a single PDF file that includes your Curriculum Vitae (CV), Degree Certificate, Grade 12 result certificate and Degree Grade Report."}
                     </span>
                   </label>
                   <input
                     type="file"
-                    accept=".pdf, .doc, .docx"
+                    accept=".pdf,"
                     onChange={(e) => handleCVChange(e)}
                     className="w-full h-10 rounded-lg border bg-black bg-opacity-50 border-cyan-500 outline-none px-4"
                   />
@@ -370,6 +407,20 @@ const TutorRegistration = () => {
               {/* {error && <div className="error">{error}</div>} */}
             </form>
           </div>
+        </div>
+        <div className="w-96 p-4 border border-gray-300 rounded-lg ml-6">
+          <p className="text-sm font-semibold mb-2">Additional Notes:</p>
+          <p className="mb-2">
+            - All uploaded documents should be clear and legible.
+          </p>
+          <p className="mb-2">
+            - The PDF file's size should not exceed the specified limit (insert
+            size limit).
+          </p>
+          <p className="mb-2">
+            - Failure to adhere to these document upload requirements may result
+            in the rejection of the registration.
+          </p>
         </div>
       </div>
     </>

@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import { useAuthContext } from './useAuthContext'
+import { useState } from "react";
+import { useAuthContext } from "./useAuthContext";
 
-export const useLogin = () => {
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const { dispatch } = useAuthContext()
+export const useTutorLogin = () => {
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { dispatch } = useAuthContext();
 
-  const login = async (emailOrUsername, password) => {
+  const tutorlogin = async (emailOrUsername, password) => {
     setIsLoading(true);
     setError(null);
 
-    const response = await fetch("/api/user/login", {
+    const response = await fetch("/api/tutor/tutorlogin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ emailOrUsername, password }),
@@ -34,5 +34,5 @@ export const useLogin = () => {
     }
   };
 
-  return { login, isLoading, error }
-}
+  return { tutorlogin, isLoading, error };
+};

@@ -16,7 +16,7 @@ const Sidebar = () => {
     <div className="bg-cyan-900 min-h-screen px-6">
       <div className="px-4 py-8 flex items-center justify-center border-b-[1px] border-slate-300">
         <h1 className="text-white text-[15px] leading-[24px] font-bold cursor-pointer">
-          Supervisor Panal
+          Tutor Dashboard
         </h1>
       </div>
       <div className="flex items-center gap-4 py-5 border-b-[1px] border-slate-300">

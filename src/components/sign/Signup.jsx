@@ -160,10 +160,10 @@ const Signup = () => {
               </button>
 
               {error && <div className="error">{error}</div>}
-              <button className="w-full bg-gradient-to-r from-blue-500 to-green-400 text-white text-md p-2 rounded-lg mb-2 hover:bg-violet-400 hover:text-white">
+              {/* <button className="w-full bg-gradient-to-r from-blue-500 to-green-400 text-white text-md p-2 rounded-lg mb-2 hover:bg-violet-400 hover:text-white">
                 <FaGoogle className="w-6 h-6 inline mr-2" />
                 Sign in with Google
-              </button>
+              </button> */}
               <div class="text-center text-gray-400 mb-2">
                 Already Have An Account?
                 <Link to="/login" className="font-bold text-black">

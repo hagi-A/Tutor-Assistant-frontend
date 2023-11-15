@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLogin } from "../../hooks/useLogin";
+import { useTutorLogin } from "../../hooks/useTutorLogin";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import { FaGoogle } from "react-icons/fa6";
@@ -8,16 +8,15 @@ import loginImage from "../../images/loginImage.jpg";
 import "react-toastify/dist/ReactToastify.css";
 import { showToast } from "../../utils/toastUtils";
 
-
-const Login = () => {
+const TutorLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const [username, setUserName] = useState("");
-  // const [email, setEmail] = useState("");
+//   const [username, setUserName] = useState("");
+//   const [email, setEmail] = useState("");
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { login, error, isLoading } = useLogin();
-  const { user } = useAuthContext();
+  const { tutorlogin, error, isLoading } = useTutorLogin();
+//   const { user } = useAuthContext();
   // const selectedRole = "ggggggg";
   const [selectedRole, setSelectedRole] = useState(""); // Default role is empty
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,24 +29,24 @@ const Login = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const role = searchParams.get("role");
+//   useEffect(() => {
+//     const searchParams = new URLSearchParams(location.search);
+//     const role = searchParams.get("role");
 
-    if (role === "Tutor") {
-      setSelectedRole("Tutor");
-    } else {
-      setSelectedRole(""); // Set the role to empty for all other cases
-    }
-  }, [location.search]);
+//     if (role === "Tutor") {
+//       setSelectedRole("Tutor");
+//     } else {
+//       setSelectedRole(""); // Set the role to empty for all other cases
+//     }
+//   }, [location.search]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await login(emailOrUsername, password);
+      await tutorlogin(emailOrUsername, password);
 
-      const response = await fetch("/api/user/login", {
+      const response = await fetch("/api/tutor/tutorlogin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,81 +58,34 @@ const Login = () => {
       const token = data.token;
       localStorage.setItem("token", token);
       const role = data.selectedRole;
-      // console.log(data)
-
-     showToast("Login successful", "success");
-      
-      if (role === "Parent") {
-        navigate("/parent");
-      }
-      // else if (role === "Admin") {
-      //   navigate("/admin");
-
-      // }
-      else if (role === "Tutor") {
-        navigate("/tutor");
-      } else if (role === "Student") {
-        console.log("tt isin");
-        navigate("/student");
-      }
-      // else if (role === "Supervisor") {
-
-      //   navigate("/supervisor");
-
-      // }
+      console.log(data)
+      navigate("/tutor");
+      showToast("Login successful", "success");
     } catch (error) {
       console.error(error);
       showToast(error, "error");
     }
- 
+    
     // await login(username, email, password);
   };
 
   return (
     <>
-      {/* <nav className="flex justify-end  bg-opacity-20">
-        {!user && (
-          <div >
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign up</Link>
-          </div>
-        )}
-      </nav> */}
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl  rounded-2xl md:flex-row md:space-y-0">
           {/* <!-- left side --> */}
           <div className="flex flex-col justify-center p-2 md:p-14">
-            <span className=" text-4xl font-light">Welcome back</span>
+            <span className=" text-4xl font-light">Welcome back Tutor</span>
             <span className="font-light text-violet-300 mb-4">
               Welcom back! Please enter your details
             </span>
 
             <form onSubmit={handleSubmit}>
-              {/* <div className="py-2 mt-2">
+              <div className="py-2 mt-2">
                 <label>
-                  <span className="mb-2 text-md  font-light">User Name: </span>
-                </label>
-                <input
-                  type="text"
-                  onChange={(e) => setUserName(e.target.value)}
-                  value={username}
-                  className="w-full p-2 border border-violet-400 rounded-md placeholder:font-light placeholder:text-gray-500"
-                />
-              </div>
-              <div className="py-4">
-                <label>
-                  <span className="mb-2 text-md font-light">Email: </span>
-                </label>
-                <input
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  className="w-full p-2 border border-violet-400 rounded-md placeholder:font-light placeholder:text-gray-500"
-                />
-              </div> */}
-              <div className="py-4">
-                <label>
-                  <span className="mb-2 text-md font-light">User Name/Email: </span>
+                  <span className="mb-2 text-md  font-light">
+                    User Name/Email:{" "}
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -153,23 +105,9 @@ const Login = () => {
                   className="w-full p-2 border  border-violet-400 rounded-md placeholder:font-light placeholder:text-gray-500"
                 />
               </div>
-              {/* <div class="flex justify-between w-full py-4">
-                <span class="font-bold text-md">Forgot password</span>
-              </div> */}
 
-              {/* <button
-                onClick={openModal}
-                type="button"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-right"
-              >
-                Forgot Password
-              </button>
-              <PasswordResetModal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-              /> */}
               <Link
-                to={"/forgotPassword"}
+                to={"/tutorForgotPassword"}
                 className="text-cyan-700 font-light float-right hover:text-cyan-400"
               >
                 Forgot Password
@@ -182,10 +120,7 @@ const Login = () => {
                 Login
               </button>
               {error && <div className="error">{error}</div>}
-              {/* <button className="w-full bg-gradient-to-r from-blue-500 to-green-400 text-white text-md p-2 rounded-lg mb-2 hover:bg-violet-400 hover:text-white">
-                <FaGoogle className="w-6 h-6 inline mr-2" />
-                Sign in with Google
-              </button> */}
+
               <div class="text-center text-gray-400 mb-0">
                 Dont'have an account?
                 <Link to="/signup" className="font-bold text-black">
@@ -218,4 +153,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default TutorLogin;

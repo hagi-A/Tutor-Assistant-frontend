@@ -8,6 +8,7 @@ import FindTutor from './components/pages/findtutor/FIndTutor'
 import BecomeTutor from './components/pages/becometutor/BecomeTutor'
 import Price from './components/pages/pricing/Price'
 import Login from './components/sign/Login'
+import TutorLogin from './components/sign/TutorLogin'
 import Signup from './components/sign/Signup'
 // import AdminLogin from './components/sign/AdminLogin'
 // import { useAuthContext } from './hooks/useAuthContext'
@@ -25,6 +26,7 @@ import TutorRegistration from './components/tutor/tutorRegister/TutorRegistratio
 import ChatPage from './components/chatPage/ChatPage'
 import ForgotPassword from './components/sign/ForgotPassword'
 import ResetPassword from './components/sign/ResetPassword'
+import TutorResetPassword from './components/sign/TutorResetPassword'
 import SideDrawer from './components/chatPage/miscellaneous/SideDrawer'
 // import Main from './components/admin/Main'
 
@@ -33,6 +35,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Dashboard from './components/chatPage/components/Dashboard'
 import WaitPage from './components/tutor/tutorRegister/WaitPage'
 import ProfilePage from './components/tutor/ProfilePage'
+import TutorForgotPassword from './components/sign/TutorForgetPassword'
 
 const App = () => {
   // const { user } = useAuthContext()
@@ -52,6 +55,7 @@ const App = () => {
           <Route  path="/signup" element={!user ? <Signup/> : <Navigate to = "/"/>} /> */}
 
           <Route path="/login" element={<Login />} />
+          <Route path="/tutorlogin" element={<TutorLogin />} />
           <Route path="/signup" element={<Signup />} />
           {/* <Route path="/AdminLogin" element={<AdminLogin />} /> */}
 
@@ -65,9 +69,14 @@ const App = () => {
           <Route path="/waitPage" element={<WaitPage />} />
 
           <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/tutorForgotPassword" element={<TutorForgotPassword />} />
           <Route
             path="/reset-password/:id/:token"
             element={<ResetPassword />}
+          />
+          <Route
+            path="/tutorResetPassword/:id/:token"
+            element={<TutorResetPassword />}
           />
 
           <Route path="/chatPage" element={<Dashboard />} />
