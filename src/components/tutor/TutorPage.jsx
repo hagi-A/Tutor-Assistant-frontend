@@ -1,12 +1,16 @@
 import React from 'react'
 // import RegistrationPage from './tutorRegister/forms/RegistrationPage'
 import Sidebar from './tutorDashboard/Sidebar'
-import { useAuthContext } from "../../hooks/useAuthContext";
+// import { useAuthContext } from "../../hooks/useAuthContext";
 import { FaEnvelope, FaRegBell, FaSearch } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { TodoWrapper } from './tutorDashboard/todoApp/TodoWrapper';
+import { useTutorContext } from "../../hooks/useTutorContext";
 
 const TutorPage = () => {
-    const { user } = useAuthContext();
+  // const { user } = useAuthContext();
+  
+  const { tutor } = useTutorContext();
 
   return (
     <>
@@ -32,21 +36,31 @@ const TutorPage = () => {
                 <FaEnvelope />
               </div>
               <div className="flex items-center gap-4 relative">
-                <p>Hareg Alemu</p>
-                <div className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative ">
-                  <button>
-                    <Link to="/profilePage">
-                      <div className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative ">
-                        <img src="" alt="" />
-                      </div>
-                    </Link>
-                  </button>
-                </div>
+                {tutor && (
+                  <>
+                    <p>
+                      {tutor.tutor.firstName} {tutor.tutor.lastName}
+                    </p>
+                    <div className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative ">
+                      <Link to="/profilePage">
+                      <img
+                        src={`http://localhost:9999/api/files/images/${tutor.tutor.selectedImages}`}
+                        alt=""
+                        className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative "
+                        />
+                      </Link>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
+          <div className="pt-6 px-6 min-h-screen bg-slate-200 ">
+            <TodoWrapper />
+          </div>
         </div>
       </div>
+      {/* </TutorContextProvider> */}
     </>
   );
 }

@@ -125,11 +125,7 @@ const [selectedOptions, setSelectedOptions] = useState([]);
       // Send jsonData to the server or perform other actions
       // console.log("JSON Data:", jsonData);
       console.log(result.data);
-      showToast("Register successful", "success");
-      showToast(
-        "Please wait till Your request is reviewed with in two work days",
-        "info"
-      );
+      
       // If successful, set the success flag to true
       success = true;
     } catch (error) {
@@ -158,8 +154,14 @@ const [selectedOptions, setSelectedOptions] = useState([]);
     //   return; // Prevent further form submission
     // }
     if (success) {
+      showToast("Register successful", "success");
+      showToast(
+        "Please wait till Your request is reviewed with in two work days",
+        "info"
+      );
       // If the API call was successful, navigate to the waitPage
-      //  navigate("/waitPage");
+      navigate("/waitPage");
+      
     }
 
     // {

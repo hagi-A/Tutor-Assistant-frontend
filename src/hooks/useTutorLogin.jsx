@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
+import { useTutorContext } from "./useTutorContext";
 
 export const useTutorLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { dispatch } = useAuthContext();
+  const { dispatch } = useTutorContext();
 
   const tutorlogin = async (emailOrUsername, password) => {
     setIsLoading(true);
@@ -16,7 +16,7 @@ export const useTutorLogin = () => {
       body: JSON.stringify({ emailOrUsername, password }),
     });
     const json = await response.json();
-
+    // console.log(json);
     if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
@@ -24,10 +24,10 @@ export const useTutorLogin = () => {
     }
     if (response.ok) {
       // save the user to local storage
-      localStorage.setItem("user", JSON.stringify(json));
+      localStorage.setItem("tutor", JSON.stringify(json));
 
       // update the auth context
-      dispatch({ type: "LOGIN", payload: json });
+      // dispatch({ type: "LOGIN", payload: json });
 
       // update loading state
       setIsLoading(false);

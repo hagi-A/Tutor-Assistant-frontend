@@ -1,11 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom/client"; 
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { AuthContextProvider } from "./context/AuthContext";
 import { initReactI18next } from "react-i18next";
 import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import { TutorContextProvider } from "./context/TutorContext";
 import ChatProvider from "./context/ChatProvider";
 import { ChakraProvider } from "@chakra-ui/react";
 // Import your translation files
@@ -33,10 +34,12 @@ i18n
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      {/* <ChatProvider> */}
-          <AuthContextProvider>
-            <App />
-          </AuthContextProvider>
-      {/* </ChatProvider> */}
+    {/* <ChatProvider> */}
+    <AuthContextProvider>
+      <TutorContextProvider>
+        <App />
+      </TutorContextProvider>
+    </AuthContextProvider>
+    {/* </ChatProvider> */}
   </React.StrictMode>
 );

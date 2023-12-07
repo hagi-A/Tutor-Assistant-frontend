@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTutorLogin } from "../../hooks/useTutorLogin";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useTutorContext } from "../../hooks/useTutorContext";
 import { FaGoogle } from "react-icons/fa6";
 import loginImage from "../../images/loginImage.jpg";
 // import PasswordResetModal from "./ForgotPasswordModal";
@@ -11,34 +11,34 @@ import { showToast } from "../../utils/toastUtils";
 const TutorLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
-//   const [username, setUserName] = useState("");
-//   const [email, setEmail] = useState("");
+  //   const [username, setUserName] = useState("");
+  //   const [email, setEmail] = useState("");
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const { tutorlogin, error, isLoading } = useTutorLogin();
-//   const { user } = useAuthContext();
+    const { tutor } = useTutorContext();
   // const selectedRole = "ggggggg";
   const [selectedRole, setSelectedRole] = useState(""); // Default role is empty
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
-//   useEffect(() => {
-//     const searchParams = new URLSearchParams(location.search);
-//     const role = searchParams.get("role");
+  //   useEffect(() => {
+  //     const searchParams = new URLSearchParams(location.search);
+  //     const role = searchParams.get("role");
 
-//     if (role === "Tutor") {
-//       setSelectedRole("Tutor");
-//     } else {
-//       setSelectedRole(""); // Set the role to empty for all other cases
-//     }
-//   }, [location.search]);
+  //     if (role === "Tutor") {
+  //       setSelectedRole("Tutor");
+  //     } else {
+  //       setSelectedRole(""); // Set the role to empty for all other cases
+  //     }
+  //   }, [location.search]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,26 +46,32 @@ const TutorLogin = () => {
     try {
       await tutorlogin(emailOrUsername, password);
 
-      const response = await fetch("/api/tutor/tutorlogin", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ emailOrUsername, password }),
-      });
-      const data = await response.json();
+      // const response = await fetch("/api/tutor/tutorlogin", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ emailOrUsername, password }),
+      // });
+      // const data = await response.json();
 
-      const token = data.token;
-      localStorage.setItem("token", token);
-      const role = data.selectedRole;
-      console.log(data)
+      // console.log(data);
+      // const token = data.token;
+      // localStorage.setItem("token", token);
+      // During login
+      // localStorage.setItem("tutorId", tutorId);
+
+      // const role = data.selectedRole;
       navigate("/tutor");
       showToast("Login successful", "success");
     } catch (error) {
       console.error(error);
       showToast(error, "error");
     }
-    
+
+    // console.log("EEEEEEEEE");
+    // console.log(localStorage.getItem("tutor"));
+    // console.log("EEEEEEEEE");
     // await login(username, email, password);
   };
 

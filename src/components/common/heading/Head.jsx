@@ -9,10 +9,12 @@ import { FaComment } from "react-icons/fa";
 import ChatPage from '../../chatPage/ChatPage'
 import "react-toastify/dist/ReactToastify.css";
 import { showToast } from "../../../utils/toastUtils";
+import { useTutorContext } from "../../../hooks/useTutorContext";
 
 const Head = () => {
   const { logout } = useLogout();
   const { user } = useAuthContext();
+  const { tutor } = useTutorContext();
   const { t } = useTranslation();
   const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -61,7 +63,7 @@ const Head = () => {
                   />
                 )}
                 <span className="text-white font-semibold">
-                  {user.username}
+                  {user.firstName}
                 </span>
                 <button
                   onClick={handleClick}
@@ -71,15 +73,31 @@ const Head = () => {
                 </button>
               </div>
             )}
-            {!user && (
-              <div className="flex items-center ml-9">
-                <Link
-                  to="/login"
+            {tutor && (
+              <>
+                <img
+                  src={`http://localhost:9999/api/files/images/${tutor.tutor.selectedImages}`}
+                  alt={tutor.tutor.firstName}
+                  className="w-12 h-12 rounded-full mr-4 object-cover"
+                />
+                <span className="text-white font-semibold">
+                  {tutor.tutor.firstName}
+                </span>
+                <button
+                  onClick={handleClick}
                   className="ml-9 text-light border border-solid border-white text-white px-4 py-2 rounded hover:border-indigo-500 hover:text-violet-500 transition duration-300 ease-in-out "
                 >
-                  Login
-                </Link>
-              </div>
+                  {t("logoutButton")}
+                </button>
+              </>
+            )}
+            {!user && !tutor && (
+              <Link
+                to="/login"
+                className="ml-9 text-light border border-solid border-white text-white px-4 py-2 rounded hover:border-indigo-500 hover:text-violet-500 transition duration-300 ease-in-out "
+              >
+                Login
+              </Link>
             )}
             <LanguageSelector />
           </nav>

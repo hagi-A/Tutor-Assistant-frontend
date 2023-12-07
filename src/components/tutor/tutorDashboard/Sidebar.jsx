@@ -1,26 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  FaChevronLeft,
+  FaUsers,
   FaChevronRight,
-  FaRegCalendarAlt,
-  FaRegChartBar,
-  FaRegSun,
-  FaStickyNote,
   FaTachometerAlt,
-  FaWrench,
+  FaUserCheck,
 } from "react-icons/fa";
+import { AiOutlineSchedule } from "react-icons/ai";
+import { FcStatistics } from "react-icons/fc";
+import { MdQuiz, MdSubject } from "react-icons/md";
+
 
 const Sidebar = () => {
   return (
     <div className="bg-cyan-900 min-h-screen px-6">
       <div className="px-4 py-8 flex items-center justify-center border-b-[1px] border-slate-300">
-        <h1 className="text-white text-[15px] leading-[24px] font-bold cursor-pointer">
+        <h1 className="text-white text-[25px] leading-[24px] font-bold cursor-pointer">
           Tutor Dashboard
         </h1>
       </div>
       <div className="flex items-center gap-4 py-5 border-b-[1px] border-slate-300">
-        <FaTachometerAlt className="text-white" />
+        <FaTachometerAlt className="text-white text-2xl" />
         <button>
           <Link
             to="/tutor"
@@ -35,22 +35,36 @@ const Sidebar = () => {
           INTERFACE
         </p> */}
         <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
-          <div className="flex items-center gap-[10px]">
-            <FaRegSun className="text-white " />
-            <button>
+          <button>
+            <div className="flex items-center gap-[10px]">
+              <FaUsers className="text-white text-2xl" />
               <Link
-                to="/tutorRequest"
+                to="/students"
                 className="text-md leading-[20px] font-light text-white"
               >
                 Students
               </Link>
-            </button>
-          </div>
+            </div>
+          </button>
+          <FaChevronRight className="text-white" />
+        </div>
+        <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
+          <button>
+            <div className="flex items-center gap-[10px]">
+              <MdSubject className="text-white text-2xl" />
+              <Link
+                to="/courses"
+                className="text-md leading-[20px] font-light text-white"
+              >
+                Courses
+              </Link>
+            </div>
+          </button>
           <FaChevronRight className="text-white" />
         </div>
         <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
           <div className="flex items-center gap-[10px]">
-            <FaRegChartBar className="text-white " />
+            <AiOutlineSchedule className=" text-white text-2xl" />
 
             <Link className="text-md leading-[20px] font-light text-white">
               Schedule
@@ -66,12 +80,12 @@ const Sidebar = () => {
       </div>
 
       <div className="pt-4 border-b-2 border-slate-300">
-        <p className="text-sm font-bold leading-[16px] text-slate-400">
+        {/* <p className="text-sm font-bold leading-[16px] text-slate-400">
           ADDONS
-        </p>
+        </p> */}
         <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
           <div className="flex items-center gap-[10px]">
-            <FaStickyNote className="text-white " />
+            <FcStatistics className="text-white text-2xl" />
 
             <Link className="text-md leading-[20px] font-light text-white">
               Progress
@@ -81,7 +95,7 @@ const Sidebar = () => {
         </div>
         <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
           <div className="flex items-center gap-[10px]">
-            <FaWrench className="text-white " />
+            <MdQuiz className="text-white text-2xl" />
 
             <Link className="text-md leading-[20px] font-light text-white">
               Quizzes
@@ -91,7 +105,7 @@ const Sidebar = () => {
         </div>
         <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
           <div className="flex items-center gap-[10px]">
-            <FaRegCalendarAlt className="text-white " />
+            <FaUserCheck className="text-white text-2xl" />
 
             <Link className="text-md leading-[20px] font-light text-white">
               Attendance
