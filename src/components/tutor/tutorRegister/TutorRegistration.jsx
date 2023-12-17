@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./tutorStyle.css";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ const TutorRegistration = () => {
   const [error, setError] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedCVs, setSelectedCVs] = useState([]);
+  const [coursesList, setCoursesList] = useState([]);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,25 +22,92 @@ const TutorRegistration = () => {
     location: "",
     phoneNumber: "",
     majorTaken: "",
-    gradeLevel: [],
+    dateOfBirth: "", // Add date of birth field
+    gender: "", // Add gender field
+    gradeLevel: "",
+    courses: [], // Add courses field
     // Add more form fields and their default values here...
   });
+  const gradeLevel = [
+    "Kindergarten",
+    "Elementary",
+    "Middle School",
+    "High School",
+    "College",
+  ];
+  const [updatedGradeLevels, setUpdatedGradeLevels] = useState([]);
   // const [value, setvalue] = useState("");
 const [selectedOptions, setSelectedOptions] = useState([]);
+const fetchCourses = async () => {
+  try {
+    // const tutorId = tutor.tutor._id;
 
-  const handleSelectChange = (values, e) => {
-    // const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
-    // setSelectedOptions(selectedValues);
-    const gradeLevel = values.split(', ');
-    // for (let i = 0, l = event.length; i < l; i += 1) {
-    //   value.push(event[i].value);
-    // }
+    // Modify the URL or use a query parameter to include the tutor's ID
+    const response = await axios.get("/getCourses");
+
+    // console.log("Tutor ID:", tutor.tutor.firstName);
+
+    console.log("Response from server:", response.data);
+    setCoursesList(response.data);
+  } catch (error) {
+    console.error("Error fetching tutors:", error);
+  }
+};
+
+useEffect(() => {
+  // if (tutor && tutor.tutor._id) {
+    fetchCourses();
+  // }
+}, []);
+
+  // const handleSelectChange = (values, e) => {
+  //   // const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
+  //   // setSelectedOptions(selectedValues);
+  //   const gradeLevel = values.split(', ');
+  //   // for (let i = 0, l = event.length; i < l; i += 1) {
+  //   //   value.push(event[i].value);
+  //   // // }
+    
+  //     const updatedprevFormData = formData.gradeLevel.includes(values)
+  //       ? formData.gradeLevel.filter((options) => options !== values)
+  //       : [...formData.gradeLevel, values];
+  //   setFormData((prevFormData) => ({
+  //     ...prevFormData,
+  //     gradeLevel: updatedprevFormData,
+  //   }));
+  //   console.log(updatedprevFormData);
+
+  // };
+  const handleGradeLevelChange = (event) => {
+    const { value } = event.target;
+
+    // Update the local state first
+    setFormData((prevFormData) => {
+      // console.log("Prev Tutor:", updatedGradeLevels);
+      // if (!prevTutor || !prevTutor.gradeLevel) {
+      //   // Handle the case when prevTutor or prevTutor.gradeLevel is undefined
+      //   return prevTutor;
+      // }
+      const updatedGradeLevels = prevFormData.gradeLevel.includes(value)
+        ? prevFormData.gradeLevel.filter((level) => level !== value)
+        : [...prevFormData.gradeLevel, value];
+
+      // Set the updatedGradeLevels state
+      setUpdatedGradeLevels(updatedGradeLevels);
+
+      return { ...prevFormData, gradeLevel: updatedGradeLevels };
+    });
+  };
+  
+
+  const handleGenderChange = (values, e) => {
+    const gender = values.target.value;
+    
     setFormData((prevFormData) => ({
       ...prevFormData,
-      gradeLevel: JSON.stringify(gradeLevel),
+      gender: gender,
     }));
-    console.log(gradeLevel);
-
+    console.log(gender);
   };
   // const handleOnChange = (selectedValues) => {
   //   // Update the gradeLevel field in formData with the selected values
@@ -50,13 +118,13 @@ const [selectedOptions, setSelectedOptions] = useState([]);
   //   console.log(selectedValues);
   // };
 
-  const options = [
-    { label: "Kindergarten", value: "Kindergarten" },
-    { label: "Elementary", value: "Elementary" },
-    { label: "Middle School", value: "Middle School" },
-    { label: "High School", value: "High School" },
-    { label: "College", value: "College" },
-  ];
+  // const options = [
+  //   { label: "Kindergarten", value: "Kindergarten" },
+  //   { label: "Elementary", value: "Elementary" },
+  //   { label: "Middle School", value: "Middle School" },
+  //   { label: "High School", value: "High School" },
+  //   { label: "College", value: "College" },
+  // ];
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -125,7 +193,7 @@ const [selectedOptions, setSelectedOptions] = useState([]);
       // Send jsonData to the server or perform other actions
       // console.log("JSON Data:", jsonData);
       console.log(result.data);
-      
+      console.log(formData.gender);
       // If successful, set the success flag to true
       success = true;
     } catch (error) {
@@ -200,6 +268,17 @@ const [selectedOptions, setSelectedOptions] = useState([]);
     //   console.error('An error occurred:', error);
     // }
   };
+  const handleCourseCheckboxChange = (courseId) => {
+    // Toggle the selection of the course
+    setFormData((prevData) => {
+      const isSelected = prevData.courses.includes(courseId);
+      const updatedCourses = isSelected
+        ? prevData.courses.filter((id) => id !== courseId)
+        : [...prevData.courses, courseId];
+
+      return { ...prevData, courses: updatedCourses };
+    });
+  };
 
   return (
     <>
@@ -260,6 +339,49 @@ const [selectedOptions, setSelectedOptions] = useState([]);
                     <option value="teacher">Teacher</option>
                   </select>
                 </div>
+                <div className="user-input-box">
+                  <label htmlFor="dateOfBirth">Date of Birth</label>
+                  <input
+                    type="date"
+                    id="dateOfBirth"
+                    value={formData.dateOfBirth}
+                    onChange={handleFormChange}
+                    className="border border-cyan-600 text-white"
+                  />
+                </div>
+                <div className="user-input-box">
+                  <div className="flex justify-between">
+                    <label>Gender:</label>
+                    <div className="flex items-center">
+                      <input
+                        type="radio"
+                        id="Male"
+                        name="gender" // Add the name attribute to group the radio buttons
+                        value="Male"
+                        // checked={true}
+                        onClick={handleGenderChange}
+                        className="mr-2 ml-4"
+                      />
+                      <label htmlFor="male" className="text-white">
+                        Male
+                      </label>
+
+                      <input
+                        type="radio"
+                        id="Female"
+                        name="gender" // Add the name attribute to group the radio buttons
+                        value="Female"
+                        // checked={formData.gender === "Female"}
+                        // checked={true}
+                        onClick={handleGenderChange}
+                        className="ml-4 mr-2"
+                      />
+                      <label htmlFor="female" className="text-white">
+                        Female
+                      </label>
+                    </div>
+                  </div>
+                </div>
 
                 <div className="user-input-box">
                   <label htmlFor="location">Location</label>
@@ -301,14 +423,25 @@ const [selectedOptions, setSelectedOptions] = useState([]);
                   <label htmlFor="gradeLevel">
                     Garde level you want to Tutor?
                   </label>
-                  <MultiSelect
-                    id="gradeLevel"
-                    onChange={handleSelectChange}
-                    value={selectedOptions}
-                    // value={formData.gradeLevel}
-                    options={options}
-                    // className="w-full rounded-lg border  border-cyan-500 outline-none px-4"
-                  />
+                  {gradeLevel.map((level) => (
+                    <div key={level} className="flex mt-3 items-center">
+                      <input
+                        type="checkbox"
+                        id={level}
+                        value={level}
+                        // checked={
+                        //   true
+                        // }
+                        onChange={handleGradeLevelChange}
+                      />
+                      <label
+                        htmlFor={level}
+                        className="grid grid-cols-2 text-lg font-light ml-2 "
+                      >
+                        {level}
+                      </label>
+                    </div>
+                  ))}
                   {/* <select
                     id="gradeLevel"
                     value={formData.gradeLevel}
@@ -321,8 +454,27 @@ const [selectedOptions, setSelectedOptions] = useState([]);
                     <option value="Middle School">Middle School</option>
                     <option value="High School">High School</option>
                     <option value="College">College</option>
-                  </select> */}
+                  </select>{" "}
+                  // */} 
                 </div>
+                <div className="user-input-box">
+                  <label>Courses:</label>
+                  {coursesList.map((course) => (
+                    <div key={course._id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id={course._id}
+                        checked={formData.courses.includes(course._id)}
+                        onChange={() => handleCourseCheckboxChange(course._id)}
+                        className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
+                      />
+                      <label htmlFor={course._id} className="ml-2 text-sm">
+                        {course.courseTitle}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+
                 {/* File and Image uploaders */}
                 <div className="user-input-box">
                   <label>

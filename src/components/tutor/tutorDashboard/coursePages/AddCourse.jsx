@@ -1,64 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../Sidebar";
 import { FaEnvelope, FaRegBell, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios  from "axios"
 import Breadcrumb from "../../../../utils/Breadcrumb";
 // import { useParams } from "react-router-dom";
 // import { TutorContext } from "../../../context/TutorContext"
 import { useTutorContext } from "../../../../hooks/useTutorContext";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 const AddCourse = () => {
   // const TutorContext = useContext(TutorContext);
 
   const { tutor } = useTutorContext();
   const tutorId = tutor ? tutor.tutor._id : null;
-  const [courseData, setCourseData] = useState({
-    courseTitle: "",
-    courseDescription: "",
-    instructorInfo: "",
-    learningObjectives: "",
-    targetAudience: "",
-    courseFormat: "",
-    curriculum: "",
-    learningResources: "",
-    assessment: "",
-    creator: tutorId,
-  });
+
   // const { id } = useParams();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCourseData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+//   const handleSubmit = async () => {
+//     try {
+//       // Assuming you have an API endpoint for creating a course
+//       const response = await fetch(`/api/course/addCourse`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(courseData),
+//       });
+//       console.log(tutor.tutor._id);
+//       if (!response.ok) {
+//         throw new Error("Failed to create course");
+//       }
+//       console.log("trrrryyyy");
+//       // Optionally, you can handle the response or redirect the user
+//       const createdCourse = await response.json();
+//       console.log(createdCourse);
+//     } catch (error) {
+//       // console.log(tutor.tutor._id);
+//       console.log("catchhhhh");
+//       console.log(error);
+//       console.error("Error creating course:", error.message);
+//     }
+    //   };
+    
+    const [courses, setCourses] = useState([]);
+    useEffect(() => {
+      axios
+        .get("/getCourses")
+        .then((courses) => setCourses(courses.data))
+        .catch((err) => console.log(err));
+    }, []);
 
-  const handleSubmit = async () => {
-    try {
-      // Assuming you have an API endpoint for creating a course
-      const response = await fetch(`/api/course/addCourse`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(courseData),
-      });
-      console.log(tutor.tutor._id);
-      if (!response.ok) {
-        throw new Error("Failed to create course");
+    function truncateDescription(description, maxLength) {
+      if (description.length <= maxLength) {
+        return description;
+      } else {
+        return description.substring(0, maxLength) + "...";
       }
-      console.log("trrrryyyy");
-      // Optionally, you can handle the response or redirect the user
-      const createdCourse = await response.json();
-      console.log(createdCourse);
-    } catch (error) {
-      // console.log(tutor.tutor._id);
-      console.log("catchhhhh");
-      console.log(error);
-      console.error("Error creating course:", error.message);
     }
-  };
+
 
   return (
     <>
@@ -111,132 +111,46 @@ const AddCourse = () => {
               <Breadcrumb pageName="Courses" subPageName="/ Add Course" />
             </div>
             <div className="overflow-auto rounded-lg shadow hidden md:block">
-              <div className=" w-full bg-slate-100 border border-cyan-900 h-[50%] rounded-lg">
-                {/* <div className="flex justify-between m-7 p-7">
-                  <form onSubmit={handleSubmit} className="flex "> */}
-                {/* Left Section */}
-                <div className="flex-1  w-full">
-                  {/* Course Details Section */}
-                  <div>
-                    <label className="text-xl font-light ">Course Title:</label>
-                    <input
-                      type="text"
-                      name="courseTitle"
-                      value={courseData.courseTitle}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-                  <div>
-                    <label className="text-xl font-light ">
-                      Course Description:
-                    </label>
-                    <textarea
-                      name="courseDescription"
-                      value={courseData.courseDescription}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-                  {/* Learning Resources Section */}
-                  <div>
-                    <label className="text-xl font-light ">
-                      Learning Resources:
-                    </label>
-                    <input
-                      type="text"
-                      name="learningResources"
-                      value={courseData.learningResources}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-
-                  {/* Assessment Section */}
-                  <div>
-                    <label className="text-xl font-light ">
-                      Assessment and Grading:
-                    </label>
-                    <textarea
-                      name="assessment"
-                      value={courseData.assessment}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
+              {/* <div className=" w-full bg-slate-100 border border-cyan-900 h-[50%] rounded-lg"></div> */}
+              <section className="md:px-5 mt-5 min-h-screen flex flex-col-4">
+                <div className="mt-4 max-w-full w-full">
+                  <div className="p-3 mt-4 lg:flex lg:flex-wrap md:flex lg:justify-between rounded-lg flex justify-center items-center">
+                    {courses &&
+                      courses.map((course) => (
+                        <div
+                          key={course._id}
+                          className="card lg:w-1/4 w-full p-8 justify-center transition duration-300"
+                        >
+                          <div className="p-4 border rounded-lg bg-slate-50 hover:border-cyan-600">
+                            <div className="flex justify-between mb-4">
+                              <h3 className="text-2xl lg:text-3xl font-light text-center lg:leading-9">
+                                {course.courseTitle}
+                              </h3>
+                              <h4 className="text-sm lg:text-base font-light leading-5 text-center">
+                                {course.courseCode}
+                              </h4>
+                            </div>
+                            <div className="text-sm lg:text-base description-container">
+                              {truncateDescription(
+                                course.courseDescription,
+                                50
+                              )}
+                            </div>
+                            <button className="flex items-center justify-center bg-cyan-500 text-white rounded-lg w-full h-10 mt-4 cursor-pointer transition duration-300 hover:bg-transparent border hover:text-cyan-500 hover:border-cyan-200">
+                              <IoIosAddCircleOutline className="text-2xl mr-2" />
+                              <Link
+                                // to={`/courses/${course._id}`}
+                                // onClick={() => setSelectedCourse(course)}
+                              >
+                                Add Course
+                              </Link>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
                   </div>
                 </div>
-                {/* Vertical Line Border */}
-                <div className="border-r-4 border-cyan-900 mx-4 h-full"></div>
-                {/* Right Section */}
-                <div className="flex-1">
-                  {/* Learning Objectives Section */}
-                  <div className="">
-                    <label className="text-xl font-light ">
-                      Learning Objectives:
-                    </label>
-                    <textarea
-                      name="learningObjectives"
-                      value={courseData.learningObjectives}
-                      onChange={handleChange}
-                      className="w-full  mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-
-                  {/* Target Audience Section */}
-                  <div>
-                    <label>Target Audience:</label>
-                    <input
-                      type="text"
-                      name="targetAudience"
-                      value={courseData.targetAudience}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-                  <div>
-                    <label>Instructor Info:</label>
-                    <input
-                      type="text"
-                      name="instructorInfo"
-                      value={courseData.instructorInfo}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-
-                  {/* Course Format Section */}
-                  <div>
-                    <label>Course Format:</label>
-                    <input
-                      type="text"
-                      name="courseFormat"
-                      value={courseData.courseFormat}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-
-                  {/* Curriculum Section */}
-                  <div>
-                    <label>Curriculum/Syllabus:</label>
-                    <textarea
-                      name="curriculum"
-                      value={courseData.curriculum}
-                      onChange={handleChange}
-                      className="w-full h-[40px] mt-3 text-md font-light rounded-xl border border-cyan-900 "
-                    />
-                  </div>
-                </div>{" "}
-                {/* </form> */}
-              </div>
-              <div className="flex justify-center m-4">
-                <button
-                  onClick={handleSubmit}
-                  className="border border-cyan-900 "
-                >
-                  Submit
-                </button>
-              </div>
+              </section>
             </div>
           </div>
         </div>

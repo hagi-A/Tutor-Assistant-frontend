@@ -9,30 +9,51 @@ import { useTutorContext } from "../../../../hooks/useTutorContext";
 import CourseDetail from "./CourseDetail";
 
 const Courses = () => {
-  const [courses, setCourses] = useState();
-  const [selectedCourse, setSelectedCourse] = useState(null);
-  const { tutor } = useTutorContext();
-  const fetchCourses = async () => {
-    try {
-      const tutorId = tutor.tutor._id;
-
-      // Modify the URL or use a query parameter to include the tutor's ID
-      const response = await axios.get(`/getCourses?tutorId=${tutorId}`);
-
-      console.log("Tutor ID:", tutor.tutor.firstName);
-
-      console.log("Response from server:", response.data);
-      setCourses(response.data);
-    } catch (error) {
-      console.error("Error fetching tutors:", error);
-    }
-  };
+  // const [courses, setCourses] = useState();
+  const [selectedCourses, setSelectedCourses] = useState([]);
+  const { tutor, setTutor } = useTutorContext();
+  console.log(tutor);
 
   useEffect(() => {
-    if (tutor && tutor.tutor._id) {
-      fetchCourses();
-    }
-  }, [tutor]);
+    const fetchSelectedCourses = async () => {
+      try {
+        if (tutor && tutor.tutor._id) {
+          const response = await axios.get(
+            `/api/tutor/getCourses/${tutor.tutor._id}`
+          );
+          setSelectedCourses(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching selected courses:", error);
+      }
+    };
+
+    fetchSelectedCourses();
+  }, [tutor.tutor._id]);
+
+
+
+  // const fetchCourses = async () => {
+  //   try {
+  //     const tutorId = tutor.tutor._id;
+
+  //     // Modify the URL or use a query parameter to include the tutor's ID
+  //     const response = await axios.get(`/getCourses?tutorId=${tutorId}`);
+
+  //     console.log("Tutor ID:", tutor.tutor.firstName);
+
+  //     console.log("Response from server:", response.data);
+  //     setCourses(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching tutors:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   if (tutor && tutor.tutor._id) {
+  //     fetchCourses();
+  //   }
+  // }, [tutor]);
   return (
     <>
       <div className="flex">
@@ -93,39 +114,38 @@ const Courses = () => {
             {/* <div className="overflow-auto rounded-lg shadow hidden md:block"> */}
             <section className=" md:px-5 mt-5 min-h-screen flex flex-col-4 ">
               <div className="mt-4 max-w-full w-full">
-                <div className="p-3 mt-4 lg:flex lg:flex-wrap md:flex lg:justify-between rounded-lg flex  justify-center items-center">
-                  {courses &&
-                    courses.map((course) => (
-                      <div
-                        key={course._id}
-                        className="card lg:w-1/4 w-full p-8  justify-center transition duration-300 "
-                      >
-                        {/* lg:w-1/3 md:w-1/2 */}
-                        <div className="p-4 border rounded-lg bg-slate-50  hover:border-cyan-600">
-                          <div className="flex justify-between mb-4 ">
-                            <h3 className="text-2xl lg:text-3xl font-light text-center lg:leading-9">
-                              {course.courseTitle}
-                            </h3>
-                            {/* {tutor && ( */}
-                              <h4 className="text-sm lg:text-base font-light leading-5 text-center">
-                                By {course.creator}
-                              </h4>
-                            {/* )} */}
-                          </div>
-                          <p className="text-sm lg:text-base">
-                            {course.courseDescription}
-                          </p>
-                          <button className="bg-cyan-500 text-white rounded-lg w-full h-10 mt-4 cursor-pointer transition duration-300 hover:bg-transparent border hover:text-cyan-500 hover:border-cyan-200">
-                            <Link
-                              to={`/courses/${course._id}`}
-                              onClick={() => setSelectedCourse(course)}
-                            >
-                              View Details
-                            </Link>
-                          </button>
+                <div className="p-3 mt-4 lg:flex lg:flex-wrap md:flex  rounded-lg flex   items-center">
+                  {selectedCourses && selectedCourses.map((course) => (
+                    <div
+                      key={course._id}
+                      className="card lg:w-1/4 w-full p-8  justify-center transition duration-300 "
+                    >
+                      {/* lg:w-1/3 md:w-1/2 */}
+                      <div className="p-4 border rounded-lg bg-slate-50  hover:border-cyan-600">
+                        <div className="flex justify-between mb-4 ">
+                          <h3 className="text-2xl lg:text-3xl font-light text-center lg:leading-9">
+                            {course.courseTitle}
+                          </h3>
+                          {/* {tutor && ( */}
+                          <h4 className="text-sm lg:text-base font-light leading-5 text-center">
+                            {course.courseCode}
+                          </h4>
+                          {/* )} */}
                         </div>
+                        <p className="text-sm lg:text-base">
+                          {course.courseDescription}
+                        </p>
+                        <button className="bg-cyan-500 text-white rounded-lg w-full h-10 mt-4 cursor-pointer transition duration-300 hover:bg-transparent border hover:text-cyan-500 hover:border-cyan-200">
+                          <Link
+                            to={`/courses/${course._id}`}
+                            onClick={() => setSelectedCourses(course)}
+                          >
+                            View Details
+                          </Link>
+                        </button>
                       </div>
-                    ))}
+                    </div>
+                  ))}
                 </div>
               </div>
             </section>

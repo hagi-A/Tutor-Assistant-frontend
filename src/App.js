@@ -94,7 +94,7 @@ const App = () => {
           <Route path="/chatPage" element={<Dashboard />} />
           <Route path="/profilePage" element={<ProfilePage />} />
 
-          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<Courses />} />
           <Route path="/addCourse" element={<AddCourse />} />
           <Route path="/courses/:courseId" element={<CourseDetail />} />
           <Route path="/students" element={<Students />} />
