@@ -1,7 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { quizReducer } from "./reducers/quizReducer";
+import { courseReducer } from "./reducers/courseReducer";
 // import { seminarsReducer } from "./reducers/seminarReducer";
-// import { Imagereducer } from "./reducers/imageReducer";
+import  tutorSlice  from "./slice/tutorSlice";
 
 const initialState = {
   isExpanded: true,
@@ -50,11 +51,13 @@ const inputReducer = (state = initialState, action) => {
 };
 
 const rootReducer = combineReducers({
-  panel: sidePanelReducer,
-//   seminars: seminarsReducer,
+  // panel: sidePanelReducer,
+  //   seminars: seminarsReducer,
   quiz: quizReducer,
-//   image: Imagereducer,
-  highlightedwords: highlightedWordsReducer,
-  input: inputReducer,
+  course: courseReducer,
+  tutor: tutorSlice.reducer,
+  //   image: Imagereducer,
+  // highlightedwords: highlightedWordsReducer,
+  // input: inputReducer,
 });
 export default rootReducer;

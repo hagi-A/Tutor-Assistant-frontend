@@ -1,17 +1,17 @@
 // Assuming you have an action to create a quiz
-export const createQuiz = (quizData) => {
+export const createQuiz = (questionsd) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("/api/quizzes", {
+      const response = await fetch("/api/quizzes/createQuiz", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(quizData),
+        body: JSON.stringify(questionsd),
       });
 
       const data = await response.json();
-
+      console.log("Data is sent to backend");
       // Dispatching an action to update the state based on a successful quiz creation
       dispatch({ type: "CREATE_QUIZ_SUCCESS", payload: data });
     } catch (error) {
