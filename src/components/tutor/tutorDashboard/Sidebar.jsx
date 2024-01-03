@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import { AiOutlineSchedule } from "react-icons/ai";
 import { FcStatistics } from "react-icons/fc";
-import { MdQuiz, MdSubject } from "react-icons/md";
+import { MdQuiz, MdSubject, MdRequestPage } from "react-icons/md";
 import { useTutorContext } from "../../../hooks/useTutorContext";
 
 const Sidebar = () => {
@@ -71,6 +71,19 @@ const Sidebar = () => {
           </div>
           <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
             <div className="flex items-center gap-[10px]">
+              <MdRequestPage className=" text-white text-2xl" />
+
+              <Link
+                to="/studentRequest"
+                className="text-md leading-[20px] font-light text-white"
+              >
+                Requests
+              </Link>
+            </div>
+            <FaChevronRight className="text-white" />
+          </div>
+          <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
+            <div className="flex items-center gap-[10px]">
               <AiOutlineSchedule className=" text-white text-2xl" />
 
               <Link className="text-md leading-[20px] font-light text-white">
@@ -104,7 +117,10 @@ const Sidebar = () => {
             <div className="flex items-center gap-[10px]">
               <MdQuiz className="text-white text-2xl" />
 
-              <Link className="text-md leading-[20px] font-light text-white">
+              <Link
+                to="/quizzes"
+                className="text-md leading-[20px] font-light text-white"
+              >
                 Quizzes
               </Link>
             </div>

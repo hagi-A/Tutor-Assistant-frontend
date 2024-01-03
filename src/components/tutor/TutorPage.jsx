@@ -43,10 +43,10 @@ const TutorPage = () => {
                     </p>
                     <div className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative ">
                       <Link to="/profilePage">
-                      <img
-                        src={`http://localhost:9999/api/files/images/${tutor.tutor.selectedImages}`}
-                        alt=""
-                        className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative "
+                        <img
+                          src={`http://localhost:9999/api/files/images/${tutor.tutor.selectedImages}`}
+                          alt=""
+                          className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative "
                         />
                       </Link>
                     </div>
@@ -55,8 +55,10 @@ const TutorPage = () => {
               </div>
             </div>
           </div>
-          <div className="pt-6 px-6 min-h-screen bg-slate-200 ">
-            <TodoWrapper />
+          <div className=" pt-6 px-6 min-h-screen bg-slate-200 ">
+            <div className="flex float-right">
+              <TodoWrapper />
+            </div>
           </div>
         </div>
       </div>

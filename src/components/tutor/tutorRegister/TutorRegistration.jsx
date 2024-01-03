@@ -13,7 +13,8 @@ const TutorRegistration = () => {
   const [error, setError] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [selectedCVs, setSelectedCVs] = useState([]);
-  const [coursesList, setCoursesList] = useState([]);
+  // const [coursesList, setCoursesList] = useState({});
+  const [selectedPackages, setSelectedPackages] = useState([]);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,59 +26,166 @@ const TutorRegistration = () => {
     dateOfBirth: "", // Add date of birth field
     gender: "", // Add gender field
     gradeLevel: "",
-    courses: [], // Add courses field
+    selectedPackages: [], // Add courses field
     // Add more form fields and their default values here...
   });
   const gradeLevel = [
-    "Kindergarten",
-    "Elementary",
-    "Middle School",
-    "High School",
-    "College",
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7",
+    "G8",
+    "G9",
+    "G10",
+    "G11",
+    "G12",
+    "Collage",
   ];
+  const coursesByGradeLevel = {
+    G1: {
+      "G1Package 1": ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G2: {
+      "G2Package 1": ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G3: {
+      "G3Package 1": ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G4: {
+      "G4Package 1": ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G5: {
+      "G5Package 1": ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G6: {
+      "G6Package 1": ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G7: {
+      "G7Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G7Package 2": ["Physics", "Biology", "Chemistry", "Maths"],
+    },
+    G8: {
+      "G8Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G8Package 2": ["Physics", "Biology", "Chemistry", "Maths"],
+    },
+    G9: {
+      "G9Package 1": ["English", "Amharic", "Geography", "History"],
+      "G9Package 2": ["Maths", "Physics", "Biology", "Chemistry"],
+    },
+    G10: {
+      "G10Package 1": ["English", "Amharic", "Geography", "History"],
+      "G10Package 2": ["Maths", "Physics", "Biology", "Chemistry"],
+    },
+    G11: {
+      "G11Natural": [
+        "English",
+        "Amharic",
+        "Maths",
+        "Science",
+        "Physics",
+        "Biology",
+        "Chemistry",
+      ],
+      "G11Social": [
+        "English",
+        "Amharic",
+        "Maths",
+        "Geography",
+        "History",
+        "Economics",
+        "Business",
+      ],
+    },
+    G12: {
+      "G12Natural": [
+        "English",
+        "Amharic",
+        "Maths",
+        "Science",
+        "Physics",
+        "Biology",
+        "Chemistry",
+      ],
+      "G12Social": [
+        "English",
+        "Amharic",
+        "Maths",
+        "Geography",
+        "History",
+        "Economics",
+        "Business",
+      ],
+    },
+    College: {
+      "Programming Package": ["C++ Programming", "Java", "Python"],
+    },
+  };
+
+
+  // useEffect(() => {
+  //   // Fetch courses from your API endpoint
+  //   const fetchCourses = async () => {
+  //     try {
+  //       const response = await fetch("/api/course/getCourses");
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch courses");
+  //       }
+
+  //       const fetchedCourses = await response.json();
+  //       setCoursesList(fetchedCourses);
+  //     } catch (error) {
+  //       console.error("Error fetching courses:", error.message);
+  //     }
+  //   };
+
+  //   fetchCourses();
+  // }, []);
   const [updatedGradeLevels, setUpdatedGradeLevels] = useState([]);
-  // const [value, setvalue] = useState("");
-const [selectedOptions, setSelectedOptions] = useState([]);
-const fetchCourses = async () => {
-  try {
-    // const tutorId = tutor.tutor._id;
 
-    // Modify the URL or use a query parameter to include the tutor's ID
-    const response = await axios.get("/getCourses");
+  // const [selectedGradeLevel, setSelectedGradeLevel] = useState("");
+  // // const [value, setvalue] = useState("");
+  // const [selectedCourses, setSelectedCourses] = useState([]);
 
-    // console.log("Tutor ID:", tutor.tutor.firstName);
+  // const handleCourseChange = (event) => {
+  //   const { value } = event.target;
 
-    console.log("Response from server:", response.data);
-    setCoursesList(response.data);
-  } catch (error) {
-    console.error("Error fetching tutors:", error);
-  }
-};
+  //   // Update the local state first
+  //   setFormData((prevFormData) => {
+  //     const updatedCourses = prevFormData.courses.includes(value)
+  //       ? prevFormData.courses.filter((course) => course !== value)
+  //       : [...prevFormData.courses, value];
 
-useEffect(() => {
-  // if (tutor && tutor.tutor._id) {
-    fetchCourses();
-  // }
-}, []);
+  //     setSelectedCourses(updatedCourses);
 
-  // const handleSelectChange = (values, e) => {
-  //   // const selectedValues = Array.from(event.target.selectedOptions, (option) => option.value);
-  //   // setSelectedOptions(selectedValues);
-  //   const gradeLevel = values.split(', ');
-  //   // for (let i = 0, l = event.length; i < l; i += 1) {
-  //   //   value.push(event[i].value);
-  //   // // }
-    
-  //     const updatedprevFormData = formData.gradeLevel.includes(values)
-  //       ? formData.gradeLevel.filter((options) => options !== values)
-  //       : [...formData.gradeLevel, values];
-  //   setFormData((prevFormData) => ({
-  //     ...prevFormData,
-  //     gradeLevel: updatedprevFormData,
-  //   }));
-  //   console.log(updatedprevFormData);
-
+  //     return { ...prevFormData, courses: updatedCourses };
+  //   });
   // };
+
+  // const handlePackageChange = (event) => {
+  //   const { value } = event.target;
+  //   setSelectedPackage(value);
+  // };
+  const handlePackageChange = (event) => {
+    const { value } = event.target;
+
+    // Check if the package is already selected
+    setSelectedPackages((prevSelectedPackages) => {
+      const updatedSelectedPackages = prevSelectedPackages.includes(value)
+        ? prevSelectedPackages.filter((pkg) => pkg !== value)
+        : [...prevSelectedPackages, value];
+
+      // Set the updatedSelectedPackages state
+      setSelectedPackages(updatedSelectedPackages);
+      console.log(updatedSelectedPackages);
+      return updatedSelectedPackages;
+    });
+
+    // console.log(selectedPackages);
+  };
+
   const handleGradeLevelChange = (event) => {
     const { value } = event.target;
 
@@ -98,11 +206,10 @@ useEffect(() => {
       return { ...prevFormData, gradeLevel: updatedGradeLevels };
     });
   };
-  
 
   const handleGenderChange = (values, e) => {
     const gender = values.target.value;
-    
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       gender: gender,
@@ -118,14 +225,6 @@ useEffect(() => {
   //   console.log(selectedValues);
   // };
 
-  // const options = [
-  //   { label: "Kindergarten", value: "Kindergarten" },
-  //   { label: "Elementary", value: "Elementary" },
-  //   { label: "Middle School", value: "Middle School" },
-  //   { label: "High School", value: "High School" },
-  //   { label: "College", value: "College" },
-  // ];
-
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -133,12 +232,6 @@ useEffect(() => {
     }));
   };
 
-  // const formOnChageHandler = (e) => {
-  //   e.preventDefault();
-  // };
-  // const fromOnSubmitHandler = (e) => {
-  //   e.preventDefault();
-  // };
   const handleImageChange = (event) => {
     const imageFiles = Array.from(event.target.files);
     setFormData((prevData) => ({
@@ -192,10 +285,21 @@ useEffect(() => {
 
       // Send jsonData to the server or perform other actions
       // console.log("JSON Data:", jsonData);
-      console.log(result.data);
+      // console.log(result.data);
       console.log(formData.gender);
+
+      console.log(formData.selectedPackage);
       // If successful, set the success flag to true
-      success = true;
+      // success = true;
+      // if (success) {
+      showToast("Register successful", "success");
+      showToast(
+        "Please wait till Your request is reviewed with in two work days",
+        "info"
+      );
+      // If the API call was successful, navigate to the waitPage
+      navigate("/waitPage");
+      // }
     } catch (error) {
       if (error.response) {
         // If there is an error response from the server
@@ -221,16 +325,6 @@ useEffect(() => {
     //   // setError('Please Select Grade Level');
     //   return; // Prevent further form submission
     // }
-    if (success) {
-      showToast("Register successful", "success");
-      showToast(
-        "Please wait till Your request is reviewed with in two work days",
-        "info"
-      );
-      // If the API call was successful, navigate to the waitPage
-      navigate("/waitPage");
-      
-    }
 
     // {
     //   ...formData,
@@ -284,7 +378,7 @@ useEffect(() => {
     <>
       <div className="m-0 p-0 box-border">
         <div className="bg-register-image flex h-screen justify-center items-center bg-fixed bg-center bg-cover bg-no-repeat">
-          <div className="w-full max-w-3xl bg-opacity-50 bg-black p-7 mx-4 my-7 rounded-lg shadow-md border border-cyan-500">
+          <div className="w-full max-w-[75%] bg-opacity-50 bg-black p-7 mx-4 my-7 rounded-lg shadow-md border border-cyan-500">
             <h1 className="form-title">Registration</h1>
             <p className="text-lg text-slate-200 text-center">
               Welcome! To become a tutor, submit a request for supervisor
@@ -332,7 +426,7 @@ useEffect(() => {
                     id="profession"
                     value={formData.profession}
                     onChange={handleFormChange}
-                    className="w-full h-10 rounded-lg border bg-black bg-opacity-50 border-cyan-600 outline-none px-4"
+                    className="w-[95%] h-10 rounded-lg border bg-black bg-opacity-50 border-cyan-600 outline-none px-4"
                   >
                     <option value="other">Other</option>
                     <option value="student">Student</option>
@@ -349,10 +443,10 @@ useEffect(() => {
                     className="border border-cyan-600 text-white"
                   />
                 </div>
-                <div className="user-input-box">
-                  <div className="flex justify-between">
+                {/* <div className="user-input-box">
+                  <div className="flex justify-start">
                     <label>Gender:</label>
-                    <div className="flex items-center">
+                    <div className="flex  items-center">
                       <input
                         type="radio"
                         id="Male"
@@ -381,7 +475,7 @@ useEffect(() => {
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="user-input-box">
                   <label htmlFor="location">Location</label>
@@ -419,61 +513,28 @@ useEffect(() => {
                     className="border border-cyan-600 text-white"
                   />
                 </div>
-                <div className="user-input-box">
-                  <label htmlFor="gradeLevel">
-                    Garde level you want to Tutor?
-                  </label>
-                  {gradeLevel.map((level) => (
-                    <div key={level} className="flex mt-3 items-center">
-                      <input
-                        type="checkbox"
-                        id={level}
-                        value={level}
-                        // checked={
-                        //   true
-                        // }
-                        onChange={handleGradeLevelChange}
-                      />
-                      <label
-                        htmlFor={level}
-                        className="grid grid-cols-2 text-lg font-light ml-2 "
-                      >
-                        {level}
-                      </label>
-                    </div>
-                  ))}
-                  {/* <select
-                    id="gradeLevel"
-                    value={formData.gradeLevel}
-                    onChange={handleFormChange}
-                    // multiple // Allow multiple selections
-                    className="w-full h-10 rounded-lg border bg-black bg-opacity-50 border-cyan-500 outline-none px-4"
-                  >
-                    <option value="Kindergarten">Kindergarten</option>
-                    <option value="Elementary">Elementary</option>
-                    <option value="Middle School">Middle School</option>
-                    <option value="High School">High School</option>
-                    <option value="College">College</option>
-                  </select>{" "}
-                  // */} 
-                </div>
-                <div className="user-input-box">
+
+                {/* <div className="user-input-box">
                   <label>Courses:</label>
-                  {coursesList.map((course) => (
-                    <div key={course._id} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={course._id}
-                        checked={formData.courses.includes(course._id)}
-                        onChange={() => handleCourseCheckboxChange(course._id)}
-                        className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
-                      />
-                      <label htmlFor={course._id} className="ml-2 text-sm">
-                        {course.courseTitle}
-                      </label>
-                    </div>
-                  ))}
-                </div>
+                  <div className="ml-3 flex flex-wrap justify-start items-center">
+                    {coursesList.map((course) => (
+                      <div key={course._id} className="flex items-center">
+                        <input
+                          type="checkbox"
+                          id={course._id}
+                          checked={formData.courses.includes(course._id)}
+                          onChange={() =>
+                            handleCourseCheckboxChange(course._id)
+                          }
+                          className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
+                        />
+                        <label htmlFor={course._id} className="ml-2 text-sm">
+                          {course.courseTitle}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div> */}
 
                 {/* File and Image uploaders */}
                 <div className="user-input-box">
@@ -543,26 +604,167 @@ useEffect(() => {
                     </div>
                   )}
                 </div>
-                {/* <div className="gender-details-box">
-                    <span className="gender-title justify-between">Gender</span>
-                    <div className="gender-category flex flex-col">
-                      <input type="radio" name="gender" id="male" />
-                      <label htmlFor="male">Male</label>
-                      <input type="radio" name="gender" id="female" />
-                      <label htmlFor="female">Female</label>
+
+                {/* Dropdown for selecting a package */}
+
+                {/* Render additional checkboxes based on selectedGradeLevels */}
+                {/* {updatedGradeLevels.map((selectedLevel) => (
+                      <div
+                        key={selectedLevel}
+                        className="flex flex-row items-center mt-3 mr-4"
+                      > 
+                  {/* <label className="text-sm font-light ml-2">
+                          Select courses for {selectedLevel}
+                        </label> */}
+                {/* {coursesByGradeLevel[selectedLevel].map((course) => (
+                          <div
+                            key={course}
+                            className="flex flex-row items-center mt-3 mr-4"
+                          >
+                            <input
+                              type="checkbox"
+                              id={course}
+                              value={course}
+                              checked={formData.courses.includes(course)} // Set to true to make all checkboxes initially checked
+                              onChange={handleCourseChange}
+                              className="text-sm"
+                              disabled={false} // Set to true to prevent unchecking
+                            />
+                            <label
+                              htmlFor={course}
+                              className="text-sm font-light ml-2"
+                            >
+                              {course}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    ))} */}
+                <div className="user-input-box">
+                  {gradeLevel.map((level) => (
+                    <div
+                      key={level}
+                      className="flex flex-row items-center mt-3 mr-4"
+                    >
+                      <input
+                        type="checkbox"
+                        id={level}
+                        value={level}
+                        checked={updatedGradeLevels.includes(level)}
+                        onChange={handleGradeLevelChange}
+                        className="text-sm"
+                      />
+                      <label
+                        htmlFor={level}
+                        className="text-sm font-light ml-2"
+                      >
+                        {level}
+                      </label>
                     </div>
-                  </div> */}
+                  ))}
+                  <div className="">
+                    {updatedGradeLevels.map((selectedLevel) => (
+                      <div
+                        key={selectedLevel}
+                        className="flex flex-row items-center mt-3 mr-4"
+                      >
+                        {Object.keys(coursesByGradeLevel[selectedLevel]).map(
+                          (packageKey) => (
+                            <div
+                              key={packageKey}
+                              className="flex flex-row items-center mt-3 mr-4"
+                            >
+                              <input
+                                type="checkbox"
+                                id={packageKey}
+                                value={packageKey}
+                                checked={selectedPackages.includes(packageKey)}
+                                onChange={handlePackageChange}
+                                className="text-sm"
+                                disabled={false}
+                              />
+                              <label
+                                htmlFor={packageKey}
+                                className="text-sm font-light ml-2"
+                              >
+                                {packageKey}
+                              </label>
+                            </div>
+                          )
+                        )}
+                        {selectedPackages.includes(selectedLevel) && (
+                          <div>
+                            {Object.entries(
+                              coursesByGradeLevel[selectedLevel]
+                            ).map(([pkg, courses]) => (
+                              <div key={pkg} className="text-sm">
+                                {pkg}: {courses.join(", ")}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  {/* </div> */}
+                </div>
+                {/* Render course packages based on selectedCourses */}
+                {/* {selectedCourses.map((selectedCourse) => (
+                      <div
+                        key={selectedCourse}
+                        className="flex flex-row items-center mt-3 mr-4"
+                      >
+                        {/* Display the course package or take further action as needed */}
+                {/* <p>{selectedCourse}</p>
+                  </div>
+                    ))}  */}
+                {/* </div> */}
+                {/* </div> */}
               </div>
+              <div className="gender-details-box">
+                <span className="gender-title flex justify-start">Gender</span>
+                <div className="flex justify-start">
+                  <div className="flex items-center mt-7">
+                    <input
+                      type="radio"
+                      id="Male"
+                      name="gender" // Add the name attribute to group the radio buttons
+                      value="Male"
+                      // checked={true}
+                      onClick={handleGenderChange}
+                      className="mr-2 ml-4"
+                    />
+                    <label htmlFor="male" className="text-white text-md">
+                      Male
+                    </label>
+                    <input
+                      type="radio"
+                      id="Female"
+                      name="gender" // Add the name attribute to group the radio buttons
+                      value="Female"
+                      // checked={formData.gender === "Female"}
+                      // checked={true}
+                      onClick={handleGenderChange}
+                      className="ml-4 mr-2"
+                    />
+                    <label htmlFor="female" className="text-white text-md">
+                      Female
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               {error && <div className="error">Error: {error}</div>}
               <div className="form-submit-btn bg-cyan-600 hover:bg-cyan-900 text-center">
                 <button type="submit">Register</button>
               </div>
-
+              {/* </div> */}
               {/* {error && <div className="error">{error}</div>} */}
+              {/* </div> */}
             </form>
           </div>
         </div>
-        <div className="w-96 p-4 border border-gray-300 rounded-lg ml-6">
+        {/* <div className="w-96 p-4 border border-gray-300 rounded-lg ml-6">
           <p className="text-sm font-semibold mb-2">Additional Notes:</p>
           <p className="mb-2">
             - All uploaded documents should be clear and legible.
@@ -574,8 +776,8 @@ useEffect(() => {
           <p className="mb-2">
             - Failure to adhere to these document upload requirements may result
             in the rejection of the registration.
-          </p>
-        </div>
+          </p>*/}
+        {/* </div>  */}
       </div>
     </>
   );

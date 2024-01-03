@@ -12,6 +12,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 // Import your translation files
 import enTranslation from "./locals/en.json";
 import amhTranslation from "./locals/amh.json";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 
 i18n
   .use(LanguageDetector)
@@ -33,13 +35,15 @@ i18n
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    {/* <ChatProvider> */}
-    <AuthContextProvider>
-      <TutorContextProvider>
-        <App />
-      </TutorContextProvider>
-    </AuthContextProvider>
-    {/* </ChatProvider> */}
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      {/* <ChatProvider> */}
+      <AuthContextProvider>
+        <TutorContextProvider>
+          <App />
+        </TutorContextProvider>
+      </AuthContextProvider>
+      {/* </ChatProvider> */}
+    </React.StrictMode>
+  </Provider>
 );

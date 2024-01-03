@@ -7,6 +7,7 @@ import Breadcrumb from "../../../../utils/Breadcrumb";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useTutorContext } from "../../../../hooks/useTutorContext";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
+import TutorBackButton from "../../../../utils/TutorBackButton";
 
 const Students = () => {
   const [student, setStudent] = useState();
@@ -83,11 +84,7 @@ const Students = () => {
         <div className="pt-6 px-6 min-h-screen bg-slate-200 ">
           <div className="flex justify-between">
             <Breadcrumb pageName="Students" />
-            {/* <button className="flex justify-between border border-cyan-800 text-white text-xl font-light bg-cyan-600 p-4 rounded-full ">
-              <IoIosAddCircleOutline className="text-3xl mr-2" />
-              <Link to={`/addCourse`}>Add Course</Link>
-            </button> */}
-            {/* {user && ( */}
+            <TutorBackButton />
           </div>
           <div>
             <h1 className="flex justify-center text-2xl font-light">

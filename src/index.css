@@ -167,10 +167,10 @@ form.signup, form.login {
     font-family: "Poppins";
   }
   .sidebar-container {
-    @apply bg-violet-400 h-[96%] w-[20rem] rounded-3xl ml-6 p-4 border transition-all duration-500 border-solid border-violet-400 relative
+    @apply bg-violet-400 h-[100%] w-[15rem] rounded-3xl ml-6 p-4 border transition-all duration-500 border-solid border-violet-400 relative
   }
   .sidebar {
-    @apply flex items-center mt-2 p-4 rounded-lg cursor-pointer hover:bg-white transition-all duration-300
+    @apply flex items-center mt-2 p-4 rounded-lg cursor-pointer hover:bg-white hover:text-violet-400 transition-all duration-300
   }
   
 }
@@ -179,7 +179,7 @@ form.signup, form.login {
   font-size: 30px; /* Adjust the size as needed */
   margin-right: 8px;
 }
-@layer components {
+/* @layer components {
   
   .timeline-container {
     @apply relative pt-2 sm:pl-28 md:w-1/2 md:ml-auto md:pl-16;
@@ -194,4 +194,4 @@ form.signup, form.login {
   .timeline-pointer-left {
       @apply md:left-auto md:right-14;
   }
-}
+} */

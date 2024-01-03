@@ -4,6 +4,7 @@ import Sidebar from "../Sidebar";
 import { FaEnvelope, FaRegBell, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Breadcrumb from "../../../../utils/Breadcrumb";
+import TutorBackButton from "../../../../utils/TutorBackButton";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { useTutorContext } from "../../../../hooks/useTutorContext";
 import CourseDetail from "./CourseDetail";
@@ -104,10 +105,13 @@ const Courses = () => {
           <div className="pt-6 px-6 min-h-screen bg-slate-200 ">
             <div className="flex justify-between">
               <Breadcrumb pageName="Courses" />
-              <button className="flex justify-between border border-cyan-800 text-white text-lg font-light bg-cyan-600 p-2 rounded-full ">
-                <IoIosAddCircleOutline className="text-2xl mr-2" />
-                <Link to={`/addCourse`}>Add Course</Link>
-              </button>
+              <div className="flex justify-between">
+                <button className="flex justify-between border border-cyan-800 text-white text-lg font-light bg-cyan-600 p-2 rounded-full ">
+                  <IoIosAddCircleOutline className="text-2xl mr-2" />
+                  <Link to={`/addCourse`}>Add Course</Link>
+                </button>
+                <TutorBackButton />
+              </div>
             </div>
             {/* <div className="mt-4 overflow-auto rounded-lg shadow hidden md:block"> */}
             {/* <div className="mt-5 w-full bg-slate-100 border border-cyan-900 h-[50%] rounded-lg"> */}
@@ -115,37 +119,38 @@ const Courses = () => {
             <section className=" md:px-5 mt-5 min-h-screen flex flex-col-4 ">
               <div className="mt-4 max-w-full w-full">
                 <div className="p-3 mt-4 lg:flex lg:flex-wrap md:flex  rounded-lg flex   items-center">
-                  {selectedCourses && selectedCourses.map((course) => (
-                    <div
-                      key={course._id}
-                      className="card lg:w-1/4 w-full p-8  justify-center transition duration-300 "
-                    >
-                      {/* lg:w-1/3 md:w-1/2 */}
-                      <div className="p-4 border rounded-lg bg-slate-50  hover:border-cyan-600">
-                        <div className="flex justify-between mb-4 ">
-                          <h3 className="text-2xl lg:text-3xl font-light text-center lg:leading-9">
-                            {course.courseTitle}
-                          </h3>
-                          {/* {tutor && ( */}
-                          <h4 className="text-sm lg:text-base font-light leading-5 text-center">
-                            {course.courseCode}
-                          </h4>
-                          {/* )} */}
+                  {selectedCourses &&
+                    selectedCourses.map((course) => (
+                      <div
+                        key={course._id}
+                        className="card lg:w-1/4 w-full p-8  justify-center transition duration-300 "
+                      >
+                        {/* lg:w-1/3 md:w-1/2 */}
+                        <div className="p-4 border rounded-lg bg-slate-50  hover:border-cyan-600">
+                          <div className="flex justify-between mb-4 ">
+                            <h3 className="text-2xl lg:text-3xl font-light text-center lg:leading-9">
+                              {course.courseTitle}
+                            </h3>
+                            {/* {tutor && ( */}
+                            <h4 className="text-sm lg:text-base font-light leading-5 text-center">
+                              {course.courseCode}
+                            </h4>
+                            {/* )} */}
+                          </div>
+                          <p className="text-sm lg:text-base">
+                            {course.courseDescription}
+                          </p>
+                          <button className="bg-cyan-500 text-white rounded-lg w-full h-10 mt-4 cursor-pointer transition duration-300 hover:bg-transparent border hover:text-cyan-500 hover:border-cyan-200">
+                            <Link
+                              to={`/courses/${course._id}`}
+                              onClick={() => setSelectedCourses(course)}
+                            >
+                              View Details
+                            </Link>
+                          </button>
                         </div>
-                        <p className="text-sm lg:text-base">
-                          {course.courseDescription}
-                        </p>
-                        <button className="bg-cyan-500 text-white rounded-lg w-full h-10 mt-4 cursor-pointer transition duration-300 hover:bg-transparent border hover:text-cyan-500 hover:border-cyan-200">
-                          <Link
-                            to={`/courses/${course._id}`}
-                            onClick={() => setSelectedCourses(course)}
-                          >
-                            View Details
-                          </Link>
-                        </button>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
             </section>

@@ -45,6 +45,15 @@ import Courses from "./components/tutor/tutorDashboard/coursePages/Courses";
 import AddCourse from "./components/tutor/tutorDashboard/coursePages/AddCourse";
 import CourseDetail from "./components/tutor/tutorDashboard/coursePages/CourseDetail";
 import Students from "./components/tutor/tutorDashboard/Students/Students";
+import Tutors from "./components/student/studentDashboard/tutors/Tutors";
+import ParentTutors from "./components/pages/parent/pages/tutors/ParentTutors";
+import TutorRequest from "./components/student/studentDashboard/tutors/ViewTutorRequest";
+import TutorRequestForm from "./components/student/studentDashboard/tutors/TutorRequestForm";
+import ParentTutorRequestForm from "./components/pages/parent/pages/tutors/ParentTutorRequestForm";
+import ViewTutorRequest from "./components/student/studentDashboard/tutors/ViewTutorRequest";
+import Requests from "./components/tutor/tutorDashboard/request/Requests";
+// import Quiz from "./components/quiz/Quiz";
+import Quizzes from "./components/tutor/tutorDashboard/quizzes/Quizzes";
 
 const App = () => {
   // const { user } = useAuthContext()
@@ -98,12 +107,22 @@ const App = () => {
           <Route path="/addCourse" element={<AddCourse />} />
           <Route path="/courses/:courseId" element={<CourseDetail />} />
           <Route path="/students" element={<Students />} />
+          <Route path="/studentTutors" element={<Tutors />} />
+          <Route path="/parentTutors" element={<ParentTutors />} />
+          <Route path="/tutorRequest" element={<TutorRequest />} />
+          <Route path="/tutorRequestForm" element={<TutorRequestForm />} />
+          <Route path="/parentTutorRequestForm" element={<ParentTutorRequestForm />} />
+          <Route
+            path="/viewTutorRequests/:userId"
+            element={<ViewTutorRequest />}
+          />
+          <Route path="/studentRequest" element={<Requests />} />
+          <Route path="/quizzes" element={<Quizzes />} />
+          {/* //   {/* <Route path="/chats/sidebar" element={<SideDrawer />} /> */}
+          {/* //     {/* <Route path='/admin' element={<App />} /> */}
+          {/* // // <Route index element={<Main />} />  */}
 
-          {/* <Route path="/chats/sidebar" element={<SideDrawer />} /> */}
-          {/* <Route path='/admin' element={<App />} />
-                <Route index element={<Main />} />  */}
-
-          {/* <Route path='/admin' element={<ProtectedRoute/>}/> */}
+          {/* // <Route path='/admin' element={<ProtectedRoute/>}/> */}
         </Routes>
       </BrowserRouter>
       <ToastContainer />

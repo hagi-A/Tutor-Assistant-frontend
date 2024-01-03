@@ -4,6 +4,7 @@ import { FaEnvelope, FaRegBell, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import axios  from "axios"
 import Breadcrumb from "../../../../utils/Breadcrumb";
+import TutorBackButton from "../../../../utils/TutorBackButton";
 // import { useParams } from "react-router-dom";
 // import { TutorContext } from "../../../context/TutorContext"
 import { useTutorContext } from "../../../../hooks/useTutorContext";
@@ -58,7 +59,20 @@ const AddCourse = () => {
         return description.substring(0, maxLength) + "...";
       }
     }
+const handleRequestCourse = async (courseId) => {
+  try {
+    // Send a course request to the backend
+    const response = await axios.post("/api/courseRequest/request", {
+      tutorId: tutor.tutor._id,
+      courseId,
+    });
 
+    console.log("Course request sent:", response.data);
+    // You might want to show a notification to the user or update the UI
+  } catch (error) {
+    console.error("Error sending course request:", error);
+  }
+};
 
   return (
     <>
@@ -107,8 +121,9 @@ const AddCourse = () => {
             </div>
           </div>
           <div className="pt-6 px-6 min-h-screen bg-slate-200 ">
-            <div className="">
+            <div className="flex justify-between">
               <Breadcrumb pageName="Courses" subPageName="/ Add Course" />
+              <TutorBackButton />
             </div>
             <div className="overflow-auto rounded-lg shadow hidden md:block">
               {/* <div className=" w-full bg-slate-100 border border-cyan-900 h-[50%] rounded-lg"></div> */}
@@ -136,11 +151,14 @@ const AddCourse = () => {
                                 50
                               )}
                             </div>
-                            <button className="flex items-center justify-center bg-cyan-500 text-white rounded-lg w-full h-10 mt-4 cursor-pointer transition duration-300 hover:bg-transparent border hover:text-cyan-500 hover:border-cyan-200">
+                            <button
+                              className="flex items-center justify-center bg-cyan-500 text-white rounded-lg w-full h-10 mt-4 cursor-pointer transition duration-300 hover:bg-transparent border hover:text-cyan-500 hover:border-cyan-200"
+                              onClick={() => handleRequestCourse(course._id)}
+                            >
                               <IoIosAddCircleOutline className="text-2xl mr-2" />
                               <Link
-                                // to={`/courses/${course._id}`}
-                                // onClick={() => setSelectedCourse(course)}
+                              // to={`/courses/${course._id}`}
+                              // onClick={() => setSelectedCourse(course)}
                               >
                                 Add Course
                               </Link>

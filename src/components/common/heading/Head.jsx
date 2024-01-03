@@ -63,7 +63,7 @@ const Head = () => {
                   />
                 )}
                 <span className="text-white font-semibold">
-                  {user.firstName}
+                  {user.user.firstName}
                 </span>
                 <button
                   onClick={handleClick}
