@@ -19,13 +19,15 @@ const Dashboard = () => {
       <div className="flex items-center gap-4 relative">
         <div className="flex items-center gap-6 border-r-2 border-[#745B83] pr-6">
           <FaRegBell />
-          <FaEnvelope />
+          <Link to="/userChat">
+            <FaEnvelope />
+          </Link>
         </div>
         <div className="flex items-center gap-4 relative">
           {user && (
-            <div>
-              <p>
-                {user.firstName} {user.lastName}
+            <div className='flex '>
+              <p className='mt-3 mr-3'>
+                {user.user.firstName} {user.user.lastName}
               </p>
               <div className="h-[50px] w-[50px] rounded-full bg-[#745B83] cursor-pointer flex items-center justify-center relative ">
                 <Link to="/profilePage">

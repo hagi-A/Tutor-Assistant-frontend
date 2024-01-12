@@ -7,6 +7,7 @@ import loginImage from "../../images/loginImage.jpg";
 // import PasswordResetModal from "./ForgotPasswordModal";
 import "react-toastify/dist/ReactToastify.css";
 import { showToast } from "../../utils/toastUtils";
+import axios from "axios";
 
 const TutorLogin = () => {
   const navigate = useNavigate();
@@ -16,11 +17,12 @@ const TutorLogin = () => {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const { tutorlogin, error, isLoading } = useTutorLogin();
-    const { tutor } = useTutorContext();
+  const { tutor } = useTutorContext();
+  const [err, setErr] = useState("");
   // const selectedRole = "ggggggg";
   const [selectedRole, setSelectedRole] = useState(""); // Default role is empty
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  // const projectID = "d3cdd6b5-ceeb-4609-b4d2-3442228d8ae6";
   // const openModal = () => {
   //   setIsModalOpen(true);
   // };
@@ -46,22 +48,6 @@ const TutorLogin = () => {
     try {
       await tutorlogin(emailOrUsername, password);
 
-      // const response = await fetch("/api/tutor/tutorlogin", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ emailOrUsername, password }),
-      // });
-      // const data = await response.json();
-
-      // console.log(data);
-      // const token = data.token;
-      // localStorage.setItem("token", token);
-      // During login
-      // localStorage.setItem("tutorId", tutorId);
-
-      // const role = data.selectedRole;
       navigate("/tutor");
       showToast("Login successful", "success");
     } catch (error) {
@@ -126,7 +112,7 @@ const TutorLogin = () => {
                 Login
               </button>
               {error && <div className="error">{error}</div>}
-
+              {err && <div className="error">{err}</div>}
               <div class="text-center text-gray-400 mb-0">
                 Dont'have an account?
                 <Link to="/signup" className="font-bold text-black">

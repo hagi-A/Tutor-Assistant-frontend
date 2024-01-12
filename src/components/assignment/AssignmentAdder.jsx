@@ -1,34 +1,33 @@
 import React, { useState } from "react";
 import { EditButton } from "../common/Button";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 // import { ChoiceIcon, DeleteIcon, QuestionIcon } from "../../assets/Icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addChoices,
   addQuestion,
-  addQuiz,
+  addAssignment,
   removeChoice,
   resetInputs,
   selectChoice,
   updateChoice,
   // setTimer,
-  
-} from "../../redux/actions/quizActions";
+} from "../../redux/actions/assignmentAction";
 import { FaHatCowboySide, FaQuestion, FaTrash } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
 // import QuizImage from "./QuizImage";
 // import { resetImage } from "../../redux/actions/imageActions";
 
-const QuestionAdder = () => {
-  const choice = useSelector((state) => state.quiz.choices);
-  const question = useSelector((state) => state.quiz.question);
-  const answer = useSelector((state) => state.quiz.correctAnswer);
- 
+const AssignmentAdder = () => {
+  const choice = useSelector((state) => state.assignment.choices);
+  const question = useSelector((state) => state.assignment.question);
+  const answer = useSelector((state) => state.assignment.correctAnswer);
+
   //   const selectedImage = useSelector((state) => state.image.selectedQuizImage);
   const dispatch = useDispatch();
 
-  const additionalQuizs = [
+  const additionalAssignments = [
     {
       question: question,
       choices: choice,
@@ -37,24 +36,8 @@ const QuestionAdder = () => {
     },
   ];
 
-  // const [selectedDate, setSelectedDate] = useState(timer || new Date());
 
-  // const handleDateChange = (date) => {
-  //   // setSelectedDate(date);
-  //   setTimer(date);
-  //   dispatch({ type: "SET_TIMER", payload: date });
-  // };
-// const handleTimerChange = (dateTime) => {
-//   dispatch(setTimer(dateTime.getTime())); // dispatch timestamp instead of Date object
-// };
-//   const handleTimeChange = (time) => {
-//     const newDateTime = new Date(selectedDate);
-//     newDateTime.setHours(time.getHours(), time.getMinutes());
-//     // setSelectedDate(newDateTime);
-//     setTimer(newDateTime);
-//     dispatch({ type: "SET_TIMER", payload: newDateTime });
-  //   };
-  
+
   const handleChoiceChange = (index, choice) => {
     dispatch(updateChoice(index, choice));
   };
@@ -77,7 +60,7 @@ const QuestionAdder = () => {
     dispatch(selectChoice(choice));
   };
 
-  const addAllQuiz = () => {
+  const addAllAssignment = () => {
     if (!question.trim()) {
       alert("Please enter a valid question");
       return;
@@ -94,7 +77,7 @@ const QuestionAdder = () => {
     }
 
     if (answer !== "") {
-      dispatch(addQuiz(additionalQuizs));
+      dispatch(addAssignment(additionalAssignments));
       dispatch(resetInputs());
       //   dispatch(resetImage());
     } else {
@@ -146,7 +129,6 @@ const QuestionAdder = () => {
             </button>
           </div>
         ))}
-        
       </div>
       <div className="flex w-full justify-between gap-3 mt-4">
         <EditButton
@@ -156,7 +138,7 @@ const QuestionAdder = () => {
         />
         <EditButton
           icon={<FaQuestion />}
-          onClick={() => addAllQuiz()}
+          onClick={() => addAllAssignment()}
           placeholder={"Add question"}
         />
       </div>
@@ -164,4 +146,4 @@ const QuestionAdder = () => {
   );
 };
 
-export default QuestionAdder;
+export default AssignmentAdder;

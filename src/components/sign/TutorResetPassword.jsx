@@ -10,6 +10,7 @@ const TutorResetPassword = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const { id, token } = useParams();
+  const [error, setError] = useState(null);
 
   // axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
@@ -22,7 +23,31 @@ const TutorResetPassword = () => {
           navigate("/tutorlogin");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        console.log(error);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+
+          // Set the error state with the server response message
+          setError(error.response.data.Status || "An error occurred");
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log(error.request);
+
+          // Set the error state with a custom message for network errors
+          setError("Network error. Please try again.");
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+
+          // Set the error state with the error message
+          setError(error.message || "An error occurred");
+        }
+      });
   };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -51,7 +76,7 @@ const TutorResetPassword = () => {
             >
               Reset
             </button>
-            {/* {error && <div className="error text-black">{error}</div>} */}
+            {error && <div className="error text-black">{error}</div>}
           </form>
           {/* right side */}
         </div>

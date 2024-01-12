@@ -1,5 +1,5 @@
-const quizsInitialState = {
-  quizs: [], // Initialize with an empty array or your quiz data
+const assignmentsInitialState = {
+  assignments: [], // Initialize with an empty array or your quiz data
   question: "", // Initialize with a default value
   choices: [],
   correctAnswer: "",
@@ -7,13 +7,13 @@ const quizsInitialState = {
   isEditing: false,
   selectedQuestionIndex: null,
   // timer: null, // Add timer
-  quizWeight: null, // Add quiz weight
+  assignmentWeight: null, // Add quiz weight
   passGrade: null, // Add pass grade
   dueDate: null, // Add due date
   time: null, // Add time
 };
 
-export const quizReducer = (state = quizsInitialState, action) => {
+export const assignmentReducer = (state = assignmentsInitialState, action) => {
   switch (action.type) {
     case "ADD_CHOICE":
       return {
@@ -25,17 +25,17 @@ export const quizReducer = (state = quizsInitialState, action) => {
         ...state,
         question: action.payload,
       };
-    case "ADD_QUIZ":
+    case "ADD_ASSIGNMENT":
       return {
         ...state,
-        quizs: [...state.quizs, ...action.payload],
+        assignments: [...state.assignments, ...action.payload],
       };
-    case "REMOVE_QUIZ":
-      const updatedQuizzes = [...state.quizs];
-      updatedQuizzes.splice(action.payload, 1); // Remove the quiz at the specified index
+    case "REMOVE_ASSIGNMENT":
+      const updatedAssignment = [...state.assignments];
+      updatedAssignment.splice(action.payload, 1); // Remove the quiz at the specified index
       return {
         ...state,
-        quizs: updatedQuizzes,
+        assignments: updatedAssignment,
       };
     case "UPDATE_CHOICE":
       const { index, choice } = action.payload;
@@ -77,7 +77,7 @@ export const quizReducer = (state = quizsInitialState, action) => {
         ...state,
         isEditing: false,
       };
-    case "EDIT_QUIZ":
+    case "EDIT_ASSIGNMENT":
       const { indexQ, newQuestion } = action.payload;
       const updatedQuestion = [...state.quizs];
       updatedQuestion[indexQ] = {
@@ -104,15 +104,15 @@ export const quizReducer = (state = quizsInitialState, action) => {
 
     case "EDIT_CORRECT_ANSWER":
       const { questionIndex, newCorrectAnswer } = action.payload;
-      const updatedQuizs = [...state.quizs];
-      updatedQuizs[questionIndex] = {
-        ...updatedQuizs[questionIndex], // Copy the existing question object
+      const updatedAssignments = [...state.assignments];
+      updatedAssignments[questionIndex] = {
+        ...updatedAssignments[questionIndex], // Copy the existing question object
         correctAnswer: newCorrectAnswer,
       };
 
       return {
         ...state,
-        quizs: updatedQuizs,
+        assignments: updatedAssignments,
       };
     case "SET_DUE_DATE":
       return {
@@ -126,10 +126,10 @@ export const quizReducer = (state = quizsInitialState, action) => {
         time: action.payload,
       };
 
-    case "SET_QUIZ_WEIGHT":
+    case "SET_ASSIGNMENT_WEIGHT":
       return {
         ...state,
-        quizWeight: action.payload,
+        assignmentWeight: action.payload,
       };
 
     case "SET_PASS_GRADE":

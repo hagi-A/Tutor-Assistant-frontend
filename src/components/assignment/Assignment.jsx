@@ -4,48 +4,43 @@ import { EditButton } from "../common/Button";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-// import { SaveIcon } from "../assets/Icons/Icons";
-import QuizContainer from "./QuizContainer";
-import QuestionAdder from "./QuestionAdder";
 import noQuizImg from "../../images/noQuizImg.jpg";
-// import { useSelector } from "react-redux";
 import { FaSave } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createQuiz,
+  createAssignment,
   setDueDate,
   setTime,
-  setQuizWeight,
+  setAssignmentWeight,
   setPassGrade,
-} from "../../redux/actions/quizActions";
+} from "../../redux/actions/assignmentAction";
 import { setTutorData } from "../../redux/slice/tutorSlice";
 import { setCourseTitle } from "../../redux/actions/courseActions";
 import { useTutorContext } from "../../hooks/useTutorContext";
+import AssignmentContainer from "./AssignmentContainer";
+import AssignmentAdder from "./AssignmentAdder";
 
-const Quiz = () => {
+const Assignment = () => {
   const location = useLocation();
   const { tutor } = useTutorContext();
   //   const seminar = location.state?.selectedSeminar || {};
-  const quiz = useSelector((state) => state.quiz.quizs);
+  const assignment = useSelector((state) => state.assignment.assignments);
   const courseTitle = useSelector((state) => state.course.courseTitle);
-  const dueDate = useSelector((state) => state.quiz.dueDate);
-  const time = useSelector((state) => state.quiz.time);
-  const quizWeight = useSelector((state) => state.quiz.quizWeight);
-  const passGrade = useSelector((state) => state.quiz.passGrade);
+  const dueDate = useSelector((state) => state.assignment.dueDate);
+  const time = useSelector((state) => state.assignment.time);
+  const assignmentWeight = useSelector(
+    (state) => state.assignment.assignmentWeight
+  );
+  const passGrade = useSelector((state) => state.assignment.passGrade);
   // const tutorData = useSelector((state) => state.tutor); // Assuming you have a tutor slice
   const dispatch = useDispatch();
   const [localCourseTitle, setLocalCourseTitle] = useState("");
-  const [savedQuizzes, setSavedQuizzes] = useState([]);
-  const [showQuizAdder, setShowQuizAdder] = useState(false);
+  const [savedAssignments, setSavedAssignments] = useState([]);
+  const [showAssignmentAdder, setShowAssignmentAdder] = useState(false);
 
   const tutorId = tutor ? tutor.tutor._id : null;
-  // const additionalQuizs = [
-  //   {
-  //     courseTitle: localCourseTitle.trim(),
-  //     questions: quiz,
-  //   },
-  // ];
-  const [quizzes, setQuizzes] = useState([]);
+ 
+  const [assignments, setAssignments] = useState([]);
   const handleDueDateChange = (date) => {
     dispatch(setDueDate(date));
   };
@@ -54,8 +49,8 @@ const Quiz = () => {
     dispatch(setTime(time));
   };
 
-  const handleQuizWeightChange = (e) => {
-    dispatch(setQuizWeight(e.target.value));
+  const handleAssignmentWeightChange = (e) => {
+    dispatch(setAssignmentWeight(e.target.value));
   };
 
   const handlePassGradeChange = (e) => {
@@ -64,24 +59,23 @@ const Quiz = () => {
 
   useEffect(() => {
     //  const tutorId = tutor ? tutor.tutor._id : null;
-    const fetchQuizzes = async (tutorId) => {
+    const fetchAssignments = async (tutorId) => {
       try {
-        const response = await axios.get("/api/quizzes/fetchById"); // Replace with your actual backend API endpoint
-        // console.log("Quizzes fetched successfully:", response.data.quizzes);
-        // setQuizzes(response.data.quizzes);
+        const response = await axios.get("/api/assignment/fetchById"); // Replace with your actual backend API endpoint
+        
         // Check the backend response structure
         console.log("Backend Response:", response.data);
 
         // Assuming quizzes is nested under 'data' property in the response
-        const fetchedQuizzes = response.data.data?.quizzes || [];
-        setQuizzes(fetchedQuizzes);
+        const fetchAssignments = response.data.data?.assignments || [];
+        setAssignments(fetchAssignments);
       } catch (error) {
         console.error("Error fetching quizzes:", error);
       }
     };
 
     // Call the function to fetch quizzes when the component mounts
-    fetchQuizzes();
+    fetchAssignments();
   }, []);
 
   useEffect(() => {
@@ -91,7 +85,7 @@ const Quiz = () => {
     }
   }, [tutorId, dispatch]);
 
-  const saveQuiz = () => {
+  const saveAssignment = () => {
     if (!localCourseTitle.trim()) {
       alert("Please enter a course title");
       return;
@@ -105,27 +99,30 @@ const Quiz = () => {
       return;
     }
 
-    alert("Quiz saved!");
-    console.log(quiz);
+    alert("Assignment saved!");
+    console.log(assignment);
     //
-    const additionalQuizs = {
+    const additionalAssignments = {
       courseTitle: localCourseTitle.trim(),
-      questions: JSON.stringify(quiz),
+      questions: JSON.stringify(assignment),
       tutorId: tutorId,
       dueDate: dueDate, // Add dueDate to the object
       time: time, // Add time to the object
-      quizWeight: quizWeight, // Add quizWeight to the object
+      assignmentWeight: assignmentWeight, // Add quizWeight to the object
       passGrade: passGrade, // Add passGrade to the object
     };
 
     // Add the saved quiz to the list of saved quizzes// Add the saved quiz to the beginning of the list of saved quizzes
-    setSavedQuizzes((prevQuizzes) => [additionalQuizs, ...prevQuizzes]);
+    setSavedAssignments((prevAssignments) => [
+      additionalAssignments,
+      ...prevAssignments,
+    ]);
 
     // JSON.stringify([additionalQuizs]);
 
     // Dispatch your action with the updated data
-    dispatch(createQuiz(additionalQuizs));
-    console.log(additionalQuizs);
+    dispatch(createAssignment(additionalAssignments));
+    console.log(additionalAssignments);
     // Optionally reset the input after saving
     // setLocalCourseTitle("");
     // dispatch(setCourseTitle("")); // Resetting global state
@@ -136,8 +133,8 @@ const Quiz = () => {
     dispatch(setCourseTitle(e.target.value));
   };
 
-  const toggleQuizAdder = () => {
-    setShowQuizAdder((prev) => !prev);
+  const toggleAssignmentAdder = () => {
+    setShowAssignmentAdder((prev) => !prev);
   };
 
   return (
@@ -146,65 +143,50 @@ const Quiz = () => {
       <div className="flex justify-between">
         <h2 className="text-lg font-semibold mb-2">Saved Quizzes</h2>
         <button
-          onClick={toggleQuizAdder}
+          onClick={toggleAssignmentAdder}
           className="p-4 bg-transparent border border-cyan-700 text-2xl font-light text-cyan-700 rounded-full"
         >
-          {showQuizAdder ? "Hide Quiz Adder" : "Show Quiz Adder"}
+          {showAssignmentAdder ? "Hide Quiz Adder" : "Show Quiz Adder"}
         </button>
       </div>
-      {!showQuizAdder && (
+      {!showAssignmentAdder && (
         <div className="flex justify-center">
-          {savedQuizzes.length === 0 ? (
+          {savedAssignments.length === 0 ? (
             <div>
               <img
                 src={noQuizImg}
                 alt="Placeholder"
                 className="w-[400px] h-[400px] rounded-full"
               />
-              <p>No quizzes yet. Click the button above to add a quiz.</p>
+              <p>No assignments yet. Click the button above to add a quiz.</p>
             </div>
           ) : (
             <div className="flex flex-wrap gap-2 justify-start">
-              {quizzes &&
-                quizzes.map((quiz, index) => (
+              {assignment &&
+                assignment.map((assignment, index) => (
                   <div
                     key={index}
                     className=" w-48 h-48 bg-slate-50 p-2 border border-cyan-800 rounded-md text-sm"
                   >
                     <div className=" p-4 rounded-md shadow-md">
                       <h3 className="text-lg font-semibold mb-2">
-                        {quiz.courseTitle}
+                        {assignment.courseTitle}
                       </h3>
                       {/* Include other details or actions related to the saved quiz */}
                       {/* For example, you can add a button to view/edit the quiz details */}
                       <button className="bg-transparent border border-cyan-800 text-cyan-800 px-3 py-1 rounded-md">
-                        View Quiz
+                        View Assignment
                       </button>
                     </div>
                   </div>
                 ))}
             </div>
-            // <div className="flex flex-wrap gap-2">
-            //   {savedQuizzes.map((savedQuiz, index) => (
-            //     <div key={index} className="bg-cyan-700 p-2 rounded-md text-sm">
-            //       <div className="bg-white p-4 rounded-md shadow-md">
-            //         <h3 className="text-lg font-semibold mb-2">
-            //           {savedQuiz.courseTitle}
-            //         </h3>
-            //         {/* Include other details or actions related to the saved quiz */}
-            //         {/* For example, you can add a button to view/edit the quiz details */}
-            //         <button className="bg-primaryMedium text-white px-3 py-1 rounded-md">
-            //           View Quiz
-            //         </button>
-            //       </div>
-            //     </div>
-            //   ))}
-            // </div>
+           
           )}
         </div>
       )}
 
-      {showQuizAdder && (
+      {showAssignmentAdder && (
         <div className="bg-white flex flex-col gap-4 mb-8 rounded-md w-full mt-3 p-3 h-full">
           <div className="flex w-full justify-between items-center">
             <div className="flex justify-start items-center">
@@ -212,7 +194,7 @@ const Quiz = () => {
                 <div className="mb-4 flex">
                   <div className="mr-4">
                     <h2 className="text-base tracking-wide font-semibold mb-2">
-                      Add a quiz to{" "}
+                      Add an assignment to{" "}
                     </h2>
                     <input
                       type="text"
@@ -251,13 +233,13 @@ const Quiz = () => {
                 <div className="mb-4 flex">
                   <div className="mr-4">
                     <h2 className="text-base tracking-wide font-semibold mb-2">
-                      Quiz Weight
+                      Assignment Weight
                     </h2>
                     <input
                       type="number"
                       className="w-full p-2 text-sm rounded-md outline-none border border-backgroundDim"
-                      value={quizWeight}
-                      onChange={handleQuizWeightChange}
+                      value={assignmentWeight}
+                      onChange={handleAssignmentWeightChange}
                     />
                   </div>
                   <div>
@@ -277,13 +259,13 @@ const Quiz = () => {
             <EditButton
               icon={<FaSave className="text-lg" />}
               placeholder={"Save"}
-              onClick={saveQuiz}
+              onClick={saveAssignment}
             />
           </div>
           <div className="w-full h-[2px] bg-backgroundDim" />
           <div className="flex w-full justify-between">
-            <QuizContainer />
-            <QuestionAdder />
+            <AssignmentContainer />
+            <AssignmentAdder />
           </div>
         </div>
       )}
@@ -291,4 +273,4 @@ const Quiz = () => {
   );
 };
 
-export default Quiz;
+export default Assignment;

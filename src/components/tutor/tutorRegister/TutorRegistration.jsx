@@ -46,52 +46,49 @@ const TutorRegistration = () => {
   ];
   const coursesByGradeLevel = {
     G1: {
-      "G1Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G1Package": ["English", "Amharic", "Social Studies", "Science"],
     },
     G2: {
-      "G2Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G2Package": ["English", "Amharic", "Social Studies", "Science"],
     },
     G3: {
-      "G3Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G3Package": ["English", "Amharic", "Social Studies", "Science"],
     },
     G4: {
-      "G4Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G4Package": ["English", "Amharic", "Social Studies", "Science"],
     },
     G5: {
-      "G5Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G5Package": ["English", "Amharic", "Social Studies", "Science"],
     },
     G6: {
-      "G6Package 1": ["English", "Amharic", "Social Studies", "Science"],
+      "G6Package": ["English", "Amharic", "Social Studies", "Science"],
     },
     G7: {
-      "G7Package 1": ["English", "Amharic", "Social Studies", "Science"],
-      "G7Package 2": ["Physics", "Biology", "Chemistry", "Maths"],
+      "G7Package_1": ["English", "Amharic", "Social Studies", "Science"],
+      "G7Package_2": ["Physics", "Biology", "Chemistry", "Maths"],
     },
     G8: {
-      "G8Package 1": ["English", "Amharic", "Social Studies", "Science"],
-      "G8Package 2": ["Physics", "Biology", "Chemistry", "Maths"],
+      "G8Package_1": ["English", "Amharic", "Social Studies", "Science"],
+      "G8Package_2": ["Physics", "Biology", "Chemistry", "Maths"],
     },
     G9: {
-      "G9Package 1": ["English", "Amharic", "Geography", "History"],
-      "G9Package 2": ["Maths", "Physics", "Biology", "Chemistry"],
+      "G9Package_1": ["English", "Amharic", "Geography", "History"],
+      "G9Package_2": ["Maths", "Physics", "Biology", "Chemistry"],
     },
     G10: {
-      "G10Package 1": ["English", "Amharic", "Geography", "History"],
-      "G10Package 2": ["Maths", "Physics", "Biology", "Chemistry"],
+      "G10Package_1": ["English", "Amharic", "Geography", "History"],
+      "G10Package_2": ["Maths", "Physics", "Biology", "Chemistry"],
     },
     G11: {
       "G11Natural": [
         "English",
-        "Amharic",
         "Maths",
-        "Science",
         "Physics",
         "Biology",
         "Chemistry",
       ],
       "G11Social": [
         "English",
-        "Amharic",
         "Maths",
         "Geography",
         "History",
@@ -104,7 +101,6 @@ const TutorRegistration = () => {
         "English",
         "Amharic",
         "Maths",
-        "Science",
         "Physics",
         "Biology",
         "Chemistry",
@@ -120,7 +116,7 @@ const TutorRegistration = () => {
       ],
     },
     College: {
-      "Programming Package": ["C++ Programming", "Java", "Python"],
+      "CS": ["C++ Programming", "Java", "Python"],
     },
   };
 
@@ -172,15 +168,22 @@ const TutorRegistration = () => {
     const { value } = event.target;
 
     // Check if the package is already selected
-    setSelectedPackages((prevSelectedPackages) => {
-      const updatedSelectedPackages = prevSelectedPackages.includes(value)
-        ? prevSelectedPackages.filter((pkg) => pkg !== value)
-        : [...prevSelectedPackages, value];
+    // setSelectedPackages((prevSelectedPackages) => {
+      //const updatedSelectedPackages = prevSelectedPackages.includes(value);
+    setFormData((prevFormData) => {
+      const updatedSelectedPackages = prevFormData.selectedPackages.includes(
+        value
+      )
+        ? prevFormData.selectedPackages.filter((pkg) => pkg !== value)
+        : [...prevFormData.selectedPackages, value];
+      setSelectedPackages(updatedSelectedPackages);
+
+      return { ...prevFormData, selectedPackages: updatedSelectedPackages };
 
       // Set the updatedSelectedPackages state
-      setSelectedPackages(updatedSelectedPackages);
-      console.log(updatedSelectedPackages);
-      return updatedSelectedPackages;
+      // setSelectedPackages(updatedSelectedPackages);
+      // console.log(updatedSelectedPackages);
+      // return updatedSelectedPackages;
     });
 
     // console.log(selectedPackages);
@@ -288,7 +291,7 @@ const TutorRegistration = () => {
       // console.log(result.data);
       console.log(formData.gender);
 
-      console.log(formData.selectedPackage);
+      console.log(formData.selectedPackages);
       // If successful, set the success flag to true
       // success = true;
       // if (success) {
@@ -314,53 +317,7 @@ const TutorRegistration = () => {
         showToast(error, "error");
       }
     }
-    // Check if gradeLevel is not selected (empty string or empty array)
-    // if (
-    //   !formData.gradeLevel ||
-    //   (Array.isArray(formData.gradeLevel) && formData.gradeLevel.length === 0)
-    // ) {
-    //   // If not selected, show an error message
-    //   console.error("Please Select Grade Level");
-    //   // You might also set an error state to display the error in your UI
-    //   // setError('Please Select Grade Level');
-    //   return; // Prevent further form submission
-    // }
-
-    // {
-    //   ...formData,
-    //   selectedImages,
-    //   selectedCVs,
-    //   // Include other form data fields
-    // };
-    // const rs: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   body: esponse = await fetch("/api/files/images", {
-    //   method: "POST",
-    //   headerformDataToSubmit.selectedImages,
-    // });
-
-    // try {
-    //   const response = await fetch("/api/tutors/tutorRegistration", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(formDataToSubmit),
-    //   });
-
-    //   if (response.ok) {
-    //     navigate("/waitPage")
-    //     // Handle success, e.g., show success message or redirect to a new page
-    //     console.log('Form submitted successfully!');
-    //   } else {
-    //     // Handle error cases
-    //     console.error('Error submitting the form.');
-    //   }
-    // } catch (error) {
-    //   // Handle errors related to fetch or network issues
-    //   console.error('An error occurred:', error);
-    // }
+   
   };
   const handleCourseCheckboxChange = (courseId) => {
     // Toggle the selection of the course
@@ -385,7 +342,7 @@ const TutorRegistration = () => {
               approval. Await an email with your result. Ensure that your
               provided details match your CV and transcripts for system access.
             </p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="overflow-auto">
               <div className="main-user-info">
                 <div className="user-input-box ">
                   <label htmlFor="firstName">First Name</label>
@@ -443,39 +400,6 @@ const TutorRegistration = () => {
                     className="border border-cyan-600 text-white"
                   />
                 </div>
-                {/* <div className="user-input-box">
-                  <div className="flex justify-start">
-                    <label>Gender:</label>
-                    <div className="flex  items-center">
-                      <input
-                        type="radio"
-                        id="Male"
-                        name="gender" // Add the name attribute to group the radio buttons
-                        value="Male"
-                        // checked={true}
-                        onClick={handleGenderChange}
-                        className="mr-2 ml-4"
-                      />
-                      <label htmlFor="male" className="text-white">
-                        Male
-                      </label>
-
-                      <input
-                        type="radio"
-                        id="Female"
-                        name="gender" // Add the name attribute to group the radio buttons
-                        value="Female"
-                        // checked={formData.gender === "Female"}
-                        // checked={true}
-                        onClick={handleGenderChange}
-                        className="ml-4 mr-2"
-                      />
-                      <label htmlFor="female" className="text-white">
-                        Female
-                      </label>
-                    </div>
-                  </div>
-                </div> */}
 
                 <div className="user-input-box">
                   <label htmlFor="location">Location</label>
@@ -513,28 +437,6 @@ const TutorRegistration = () => {
                     className="border border-cyan-600 text-white"
                   />
                 </div>
-
-                {/* <div className="user-input-box">
-                  <label>Courses:</label>
-                  <div className="ml-3 flex flex-wrap justify-start items-center">
-                    {coursesList.map((course) => (
-                      <div key={course._id} className="flex items-center">
-                        <input
-                          type="checkbox"
-                          id={course._id}
-                          checked={formData.courses.includes(course._id)}
-                          onChange={() =>
-                            handleCourseCheckboxChange(course._id)
-                          }
-                          className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
-                        />
-                        <label htmlFor={course._id} className="ml-2 text-sm">
-                          {course.courseTitle}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div> */}
 
                 {/* File and Image uploaders */}
                 <div className="user-input-box">
@@ -698,7 +600,9 @@ const TutorRegistration = () => {
                               coursesByGradeLevel[selectedLevel]
                             ).map(([pkg, courses]) => (
                               <div key={pkg} className="text-sm">
-                                {pkg}: {courses.join(", ")}
+                                <p>
+                                  {pkg}: {courses.join(", ")}
+                                </p>
                               </div>
                             ))}
                           </div>
@@ -709,15 +613,15 @@ const TutorRegistration = () => {
                   {/* </div> */}
                 </div>
                 {/* Render course packages based on selectedCourses */}
-                {/* {selectedCourses.map((selectedCourse) => (
-                      <div
-                        key={selectedCourse}
-                        className="flex flex-row items-center mt-3 mr-4"
-                      >
-                        {/* Display the course package or take further action as needed */}
-                {/* <p>{selectedCourse}</p>
-                  </div>
-                    ))}  */}
+                {/* {selectedPackages.map((selectedCourse) => (
+                  <div
+                    key={selectedCourse}
+                    className="flex flex-row items-center mt-3 mr-4"
+                  >
+                //     {/* Display the course package or take further action as needed */}
+                {/* //     <p>{selectedCourse}</p>
+                //   </div> */}
+                {/* // ))}  */}
                 {/* </div> */}
                 {/* </div> */}
               </div>

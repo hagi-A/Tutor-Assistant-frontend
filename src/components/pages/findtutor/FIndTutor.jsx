@@ -7,14 +7,15 @@ import AvailableTutors from "./AvailableTutors";
 import FindTutorNote from "./FindTutorNote.";
 import SearchBar from "./SearchBar"; // Import the SearchBar component
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 import Dashboard from "../../chatPage/components/Dashboard";
 import { FaComment } from "react-icons/fa";
+import Chat from "../../Chat/TutorChat";
 
 function FindTutor() {
   const [searchResults, setSearchResults] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const toggleChat = () => {
     setIsChatOpen(!isChatOpen);
@@ -98,17 +99,19 @@ function FindTutor() {
             toggleChat={toggleChat}
             closeChat={closeChat}
           /> */}
-          {isChatOpen && <Dashboard toggleChat={toggleChat} />}
-          {/* <Dashboard isOpen={isChatOpen} toggleChat={toggleChat} /> */}
+          {/* {isChatOpen && <Dashboard toggleChat={toggleChat} />}
+          <Dashboard isOpen={isChatOpen} toggleChat={toggleChat} /> */}
+          {isChatOpen && <Chat toggleChat={toggleChat} />}
+          <Chat isOpen={isChatOpen} toggleChat={toggleChat} />
         </div>
         <div className="">
           <FindTutorNote />
-          <AvailableTutors />
+          <AvailableTutors />\
         </div>
       </section>
     </>
   );
-};
+}
 
 export default FindTutor;
 //bg-center bg-cover bg-no-repeat h-screen flex items-center justify-center

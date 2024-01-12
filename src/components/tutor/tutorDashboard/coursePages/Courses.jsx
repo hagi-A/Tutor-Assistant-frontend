@@ -30,7 +30,7 @@ const Courses = () => {
     };
 
     fetchSelectedCourses();
-  }, [tutor.tutor._id]);
+  }, []);
 
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLogout } from "../../../hooks/useLogout";
+import { useTutorLogout } from "../../../hooks/useTutorLogout";
 import { useAuthContext } from "../../../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import userProfile from "../../../images/userProfile.png";
@@ -13,6 +14,7 @@ import { useTutorContext } from "../../../hooks/useTutorContext";
 
 const Head = () => {
   const { logout } = useLogout();
+  const { tutorLogout } = useTutorLogout();
   const { user } = useAuthContext();
   const { tutor } = useTutorContext();
   const { t } = useTranslation();
@@ -24,7 +26,14 @@ const Head = () => {
 
   const handleClick = () => {
     showToast("Logged out", "info");
-    logout();
+
+    if (user) {
+      // For regular users
+      logout();
+    } else if (tutor) {
+      // For tutors
+      tutorLogout();
+    }
   };
   return (
     <>

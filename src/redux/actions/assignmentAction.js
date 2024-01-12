@@ -1,8 +1,8 @@
 // Assuming you have an action to create a quiz
-export const createQuiz = (questionsd) => {
+export const createAssignment = (questionsd) => {
   return async (dispatch) => {
     try {
-      const response = await fetch("/api/quizzes/createQuiz", {
+      const response = await fetch("/api/assignment/createAssignment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -13,12 +13,12 @@ export const createQuiz = (questionsd) => {
       const data = await response.json();
       console.log("Data is sent to backend");
       // Dispatching an action to update the state based on a successful quiz creation
-      dispatch({ type: "CREATE_QUIZ_SUCCESS", payload: data });
+      dispatch({ type: "CREATE_ASSIGNMENT_SUCCESS", payload: data });
     } catch (error) {
-      console.error("Error creating quiz:", error);
+      console.error("Error creating ASSIGNMENT:", error);
 
       // Dispatching an action to update the state based on an error
-      dispatch({ type: "CREATE_QUIZ_ERROR", payload: error.message });
+      dispatch({ type: "CREATE_ASSIGNMENT_ERROR", payload: error.message });
     }
   };
 };
@@ -32,13 +32,13 @@ export const addChoices = () => ({
   type: "ADD_CHOICE",
 });
 
-export const addQuiz = (quiz) => ({
-  type: "ADD_QUIZ",
-  payload: quiz,
+export const addAssignment = (assignment) => ({
+  type: "ADD_ASSIGNMENT",
+  payload: assignment,
 });
 
-export const removeQuiz = (index) => ({
-  type: "REMOVE_QUIZ",
+export const removeAssignment = (index) => ({
+  type: "REMOVE_ASSIGNMENT",
   payload: index,
 });
 
@@ -69,7 +69,7 @@ export const saveEditing = () => ({
 });
 
 export const editngQuestion = (indexQ, newQuestion) => ({
-  type: "EDIT_QUIZ",
+  type: "EDIT_ASSIGNMENT",
   payload: { indexQ, newQuestion },
 });
 
@@ -93,9 +93,9 @@ export const setTime = (time) => ({
   payload: time,
 });
 
-export const setQuizWeight = (quizWeight) => ({
-  type: "SET_QUIZ_WEIGHT",
-  payload: quizWeight,
+export const setAssignmentWeight = (assignmentWeight) => ({
+  type: "SET_ASSIGNMENT_WEIGHT",
+  payload: assignmentWeight,
 });
 
 export const setPassGrade = (passGrade) => ({

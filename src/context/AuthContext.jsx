@@ -53,7 +53,7 @@ export const AuthContextProvider = ({ children }) => {
     // <AuthContext.Provider value={{ ...state, dispatch }}>
     //   {children}
     // </AuthContext.Provider>
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, dispatch }}>
       {children}
       {/* //{" "} */}
     </AuthContext.Provider>

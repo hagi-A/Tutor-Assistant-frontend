@@ -10,45 +10,7 @@ import { Link } from "react-router-dom";
 import "./findtutor.css";
 import { useTutorContext } from "../../../hooks/useTutorContext";
 
-// const tutors = [
-//   {
-//     id: 1,
-//     name: "Tutor 1",
-//     imageUrl: tutor1,
-//     profession: "Teacher",
-//     description:
-//       "Experienced in mathematics and physics. Passionate about teaching and helping students succeed.",
-//     rating: 4.8,
-//   },
-//   {
-//     id: 2,
-//     name: "Tutor 2",
-//     imageUrl: tutor2,
-//     profession: "Student",
-//     description:
-//       "Specializes in English literature dfhkaufa ilaufgoaisuf and language. Patient and dedicated to student learning.",
-//     rating: 2,
-//   },
-//   {
-//     id: 3,
-//     name: "Tutor 3",
-//     imageUrl: tutor3,
-//     profession: "Teacher",
-//     description:
-//       "Specializes in English literature and language. Patient and dedicated to student learning.",
-//     rating: 3,
-//   },
-//   {
-//     id: 4,
-//     name: "Tutor 4",
-//     imageUrl: tutor4,
-//     profession: "Engineer",
-//     description:
-//       "Specializes in English literature and language. Patient and dedicated to student learning.",
-//     rating: 5,
-//   },
-//   // Add more tutors here
-// ];
+
 
 const AvailableTutors = () => {
   const { tutor } = useTutorContext();
@@ -56,7 +18,7 @@ const AvailableTutors = () => {
 
   const fetchTutors = async () => {
     try {
-      const response = await axios.get("/getTutors");
+      const response = await axios.get("/api/supervisor/getAcceptedTutors");
       setTutors(response.data);
     } catch (error) {
       console.error("Error fetching tutors:", error);

@@ -11,6 +11,7 @@ import { showToast } from "../../utils/toastUtils";
 
 const Login = () => {
   const navigate = useNavigate();
+  // const history = useHistory();
   const location = useLocation();
   // const [username, setUserName] = useState("");
   // const [email, setEmail] = useState("");
@@ -30,16 +31,16 @@ const Login = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const role = searchParams.get("role");
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   const role = searchParams.get("role");
 
-    if (role === "Tutor") {
-      setSelectedRole("Tutor");
-    } else {
-      setSelectedRole(""); // Set the role to empty for all other cases
-    }
-  }, [location.search]);
+  //   if (role === "Tutor") {
+  //     setSelectedRole("Tutor");
+  //   } else {
+  //     setSelectedRole(""); // Set the role to empty for all other cases
+  //   }
+  // }, [location.search]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,21 +66,14 @@ const Login = () => {
       
       if (role === "Parent") {
         navigate("/parent");
-      }
-      // else if (role === "Admin") {
-      //   navigate("/admin");
-
-      // }
-      else if (role === "Tutor") {
-        navigate("/tutor");
       } else if (role === "Student") {
         console.log("tt isin");
         navigate("/student");
       }
-      // else if (role === "Supervisor") {
-
-      //   navigate("/supervisor");
-
+      // if (role === "Parent") {
+      //   history.push("/parent");
+      // } else if (role === "Student") {
+      //   history.push("/student");
       // }
     } catch (error) {
       console.error(error);

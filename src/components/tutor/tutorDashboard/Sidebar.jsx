@@ -128,6 +128,19 @@ const Sidebar = () => {
           </div>
           <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
             <div className="flex items-center gap-[10px]">
+              <MdQuiz className="text-white text-2xl" />
+
+              <Link
+                to="/assignment"
+                className="text-md leading-[20px] font-light text-white"
+              >
+                Assignments
+              </Link>
+            </div>
+            <FaChevronRight className="text-white" />
+          </div>
+          <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
+            <div className="flex items-center gap-[10px]">
               <FaUserCheck className="text-white text-2xl" />
 
               <Link className="text-md leading-[20px] font-light text-white">
