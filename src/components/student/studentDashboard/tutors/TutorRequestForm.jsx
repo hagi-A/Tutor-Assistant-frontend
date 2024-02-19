@@ -1,7 +1,7 @@
 // Modal.js
 import "./modal.css"
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../../../hooks/useAuthContext";
@@ -15,14 +15,34 @@ import { FaTimes } from "react-icons/fa";
 import BackButton from "../../../../utils/BackButton";
 
 const TutorRequestForm = ({ isOpen, onClose }) => {
-  
   const { user } = useAuthContext();
   const [gender, setGender] = useState("");
   const [grade, setGrade] = useState("");
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
   const [profession, setProfession] = useState("");
   const [ageGroups, setAgeGroups] = useState("");
-
+  // Add state for selected package
+  const [selectedPackages, setSelectedPackages] = useState([]);
+useEffect(() => {
+  // Reset selectedPackages when grade changes
+  setSelectedPackages([]);
+}, [grade]);
+  // Add the handlePackageClick function
+  // const handlePackageClick = (packageKey) => {
+  //   setSelectedPackage(packageKey === selectedPackage ? null : packageKey);
+  // };
+  // Toggle the selected packages
+  const togglePackage = (packageKey) => {
+    setSelectedPackages((prevSelectedPackages) => {
+      if (prevSelectedPackages.includes(packageKey)) {
+        // Remove package if already selected
+        return prevSelectedPackages.filter((pkg) => pkg !== packageKey);
+      } else {
+        // Add package if not selected
+        return [...prevSelectedPackages, packageKey];
+      }
+    });
+  };
   // Example list of courses
   // const courseOptions = [
   //   "Mathimatics",
@@ -38,49 +58,85 @@ const TutorRequestForm = ({ isOpen, onClose }) => {
   //   "Amharic",
   // ];
   const coursesByGradeLevel = {
-    // G1: ["English", "Amharic", "Maths", "Science"],
-    // G2: ["English", "Amharic", "Maths", "Science"],
-    // G3: ["English", "Amharic", "Maths", "Science"],
-    // G4: ["English", "Amharic", "Maths", "Science"],
-    // G5: ["English", "Amharic", "Maths", "Science"],
-    // G6: ["English", "Amharic", "Maths", "Science"],
-    G7: [
-      "Package 1: English, Amharic, Social Studies, Science",
-      "Package 2: Physics, Biology, Chemistry, Maths",
-    ],
-    G8: [
-      "Package 1: English, Amharic, Social Studies, Science",
-      "Package 2: Physics, Biology, Chemistry, Maths",
-    ],
-    G9: [
-      "Package 1: English, Amharic, Geography, History ",
-      "Package 2: Maths, Physics, Biology, Chemistry",
-    ],
-    G10: [
-      "Package 1: English, Amharic, Geography, History ",
-      "Package 2: Maths, Physics, Biology, Chemistry",
-    ],
-    G11: [
-      "Natural Package: English, Amharic, Maths, Science, Physics, Biology, Chemistry",
-      "Social Package: English, Amharic, Maths, Geography, History, Economics, Business",
-    ],
-    G12: [
-      "Natural Package: English, Amharic, Maths, Science, Physics, Biology, Chemistry",
-      "Social Package: English, Amharic, Maths, Geography, History, Economics, Business",
-    ],
-    College: ["C++ Programming", "Java", "Phyton"],
+    // G1: {
+    //   G1Package: ["English", "Amharic", "Social Studies", "Science"],
+    // },
+    // G2: {
+    //   G2Package: ["English", "Amharic", "Social Studies", "Science"],
+    // },
+    // G3: {
+    //   G3Package: ["English", "Amharic", "Social Studies", "Science"],
+    // },
+    // G4: {
+    //   G4Package: ["English", "Amharic", "Social Studies", "Science"],
+    // },
+    // G5: {
+    //   G5Package: ["English", "Amharic", "Social Studies", "Science"],
+    // },
+    // G6: {
+    //   G6Package: ["English", "Amharic", "Social Studies", "Science"],
+    // },
+    G7: {
+      G7Package_1: ["English", "Amharic", "Social Studies", "Science"],
+      G7Package_2: ["Physics", "Biology", "Chemistry", "Maths"],
+    },
+    G8: {
+      G8Package_1: ["English", "Amharic", "Social Studies", "Science"],
+      G8Package_2: ["Physics", "Biology", "Chemistry", "Maths"],
+    },
+    G9: {
+      G9Package_1: ["English", "Amharic", "Geography", "History"],
+      G9Package_2: ["Maths", "Physics", "Biology", "Chemistry"],
+    },
+    G10: {
+      G10Package_1: ["English", "Amharic", "Geography", "History"],
+      G10Package_2: ["Maths", "Physics", "Biology", "Chemistry"],
+    },
+    G11: {
+      G11Natural: ["English", "Maths", "Physics", "Biology", "Chemistry"],
+      G11Social: [
+        "English",
+        "Maths",
+        "Geography",
+        "History",
+        "Economics",
+        "Business",
+      ],
+    },
+    G12: {
+      G12Natural: [
+        "English",
+        "Amharic",
+        "Maths",
+        "Physics",
+        "Biology",
+        "Chemistry",
+      ],
+      G12Social: [
+        "English",
+        "Amharic",
+        "Maths",
+        "Geography",
+        "History",
+        "Economics",
+        "Business",
+      ],
+    },
+    College: {
+      CS: ["C++ Programming", "Java", "Python"],
+    },
   };
 
-  const handleCheckboxChange = (course) => {
-    // Toggle the selected course
-    setCourses((prevCourses) => {
-      if (prevCourses.includes(course)) {
-        return prevCourses.filter((c) => c !== course);
-      } else {
-        return [...prevCourses, course];
-      }
-    });
-  };
+  // const handleCheckboxChange = (course) => {
+  //   // Toggle the selected course
+  //   setCourses((prevCourses) => {
+  //     if (prevCourses.includes(course)) {
+  //       return prevCourses.filter((c) => c !== course);
+  //     } else {
+  //       return [...prevCourses, course];
+  //     }
+  //   });
+  // };
 
   const handleRadioChange = (e, setState) => {
     setState(e.target.value);
@@ -90,7 +146,6 @@ const TutorRequestForm = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     try {
-
       const userId = user.user._id;
       // if (ageGroups.length === 0) {
       //   // Handle the case where ageGroup is not selected
@@ -104,7 +159,7 @@ const TutorRequestForm = ({ isOpen, onClose }) => {
       const requestData = {
         gender,
         grade,
-        courses,
+        selectedPackages,
         profession,
         // creator: creator,
         // ageGroup: selectedAgeGroup,
@@ -119,7 +174,7 @@ const TutorRequestForm = ({ isOpen, onClose }) => {
       // Handle the response if needed
       console.log("Tutor request submitted successfully:", response.data);
       console.log(requestData);
-      
+
       showToast("Post successful", "success");
       // Close the modal after handling the request
       // onClose();
@@ -394,40 +449,93 @@ const TutorRequestForm = ({ isOpen, onClose }) => {
                   </div>
 
                   {/* Courses Checkboxes */}
-                  <div className=" ">
-                    <label
-                      htmlFor="gradeLevel"
-                      className="text-2xl font-semibold text-gray-700"
-                    >
-                      Courses:
-                    </label>
-                    <div className="ml-3 flex flex-wrap justify-start items-center">
-                      {grade && (
-                        <div>
-                          {coursesByGradeLevel[grade].map((course) => (
-                            <div
-                              key={course}
-                              className="flex flex-row justify-start items-center mt-3 mr-4 text-black"
-                            >
-                              <input
-                                type="checkbox"
-                                id={`course-${course}`}
-                                value={`course-${course}`}
-                                checked={courses.includes(course)}
-                                onChange={() => handleCheckboxChange(course)}
-                                className="text-sm"
-                              />
-                              <label
-                                htmlFor={`course-${course}`}
-                                className="text-sm  font-light ml-2"
+                  {/* <div className=" ">
+                    {grade && (
+                      <>
+                        <label
+                          htmlFor="gradeLevel"
+                          className="text-2xl font-semibold text-gray-700"
+                        >
+                          Courses:
+                        </label>
+                        <div className="ml-3 flex flex-wrap justify-start items-center">
+                          <div>
+                            {coursesByGradeLevel[grade].map((course) => (
+                              <div
+                                key={course}
+                                className="flex flex-row justify-start items-center mt-3 mr-4 text-black"
                               >
-                                {course}
-                              </label>
-                            </div>
-                          ))}
+                                <input
+                                  type="checkbox"
+                                  id={`course-${course}`}
+                                  value={`course-${course}`}
+                                  checked={courses.includes(course)}
+                                  onChange={() => handleCheckboxChange(course)}
+                                  className="text-sm"
+                                />
+                                <label
+                                  htmlFor={`course-${course}`}
+                                  className="text-sm  font-light ml-2"
+                                >
+                                  {course}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      )}
-                    </div>
+                      </>
+                    )}
+                  </div> */}
+                  <div className="">
+                    {grade && (
+                      <>
+                        <label
+                          htmlFor="gradeLevel"
+                          className="text-2xl font-semibold text-gray-700"
+                        >
+                          Courses:
+                        </label>
+                        <div className="ml-3 flex flex-wrap justify-start items-center">
+                          <div>
+                            {Object.keys(coursesByGradeLevel[grade]).map(
+                              (packageKey) => (
+                                <div key={packageKey} className="mb-2">
+                                  <div className="flex items-center">
+                                    <input
+                                      type="checkbox"
+                                      id={`package-${packageKey}`}
+                                      value={`package-${packageKey}`}
+                                      checked={selectedPackages.includes(
+                                        packageKey
+                                      )}
+                                      onChange={() => togglePackage(packageKey)}
+                                      className="text-sm"
+                                    />
+                                    <label
+                                      htmlFor={`package-${packageKey}`}
+                                      className="text-base font-semibold cursor-pointer ml-2"
+                                    >
+                                      {packageKey}:
+                                    </label>
+                                  </div>
+                                  {selectedPackages.includes(packageKey) && (
+                                    <div className="ml-4">
+                                      {coursesByGradeLevel[grade][
+                                        packageKey
+                                      ].map((course) => (
+                                        <div key={course} className="text-sm">
+                                          {course}
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              )
+                            )}
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {/* Post Request Button */}

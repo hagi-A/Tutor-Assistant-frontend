@@ -33,7 +33,7 @@ const Dashboard = () => {
                 <Link to="/profilePage">
                   <img
                     // src={`http://localhost:9999/api/files/images/${user.selectedImages}`}
-                    alt=""
+                    // alt=""
                     className="h-[50px] w-[50px] rounded-full bg-cyan-800 cursor-pointer flex items-center justify-center relative "
                   />
                 </Link>

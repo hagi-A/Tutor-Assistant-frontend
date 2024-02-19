@@ -9,10 +9,12 @@ import tutor4 from "../../../images/tutor4.jpg";
 import { Link } from "react-router-dom";
 import "./findtutor.css";
 import { useTutorContext } from "../../../hooks/useTutorContext";
+import { useTranslation } from "react-i18next";
 
 
 
 const AvailableTutors = () => {
+   const { t } = useTranslation();
   const { tutor } = useTutorContext();
   const [tutors, setTutors] = useState();
 
@@ -32,7 +34,7 @@ const AvailableTutors = () => {
     <>
       <div className="p-4 h-screen mt-9">
         <h2 className="text-4xl font-light mb-4 text-center">
-          Available Tutors
+          {t("availableTutors")}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -45,8 +47,8 @@ const AvailableTutors = () => {
               >
                 {/* {tutor && ( */}
                 <img
-                  src={`http://localhost:9999/api/files/images/${tutor.selectedImages}`}
-                  alt={tutor.firstName}
+                  // src={`http://localhost:9999/api/files/images/${tutor.selectedImages}`}
+                  // alt={tutor.firstName}
                   className="object-cover w-full rounded-md  h-[50%]"
                 />
                 {/* )} */}

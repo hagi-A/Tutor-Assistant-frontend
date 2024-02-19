@@ -10,9 +10,7 @@ import { showToast } from "../../utils/toastUtils";
 const Signup = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  // const initialRole = queryParams.get("role") || "Tutor";
   const initialRole = queryParams.get("role");
-
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -20,25 +18,9 @@ const Signup = () => {
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const { signup, error, isLoading } = useSignup();
-  // var errors = "";
-  // var isLoading = false;
-  // const [showTutorOption, setShowTutorOption] = useState(true);
-
-  // const handleFindTutorNow = () => {
-  //   setShowTutorOption(false); // Hide the "Tutor" option
-  // };
-
   const { user } = useAuthContext();
-  // const [selectedRole, setSelectedRole] = useState(initialRole);
   const [selectedRole, setSelectedRole] = useState(initialRole || ""); // Initialize with the provided role
 
-  // const handleRoleChange = (e) => {
-  //   setSelectedRole(e.target.value);
-  // };
-
-  // useEffect(() => {
-  //   handleSubmit();
-  // });
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(
@@ -49,20 +31,16 @@ const Signup = () => {
         password,
         selectedRole
     );
-    
-        // .then((response) => {
           if (error != null) {
             if (selectedRole === "Parent") {
               navigate("/parent");
             } else if (selectedRole === "Student") {
-              console.log("tt isin");
+              console.log("tt is in");
               navigate("/student");
             }
             showToast("Signup successful", "success");
             // console.log(response.json());
           }
-          // console.log(response);
-        // })
   };
 
   return (
@@ -142,34 +120,24 @@ const Signup = () => {
                   className="w-full p-2 border border-violet-400 rounded-md focus:ring focus:ring-blue-400"
                 >
                   <option value="">Select Role</option>
-                  {/* <option value="Tutor">Tutor</option> */}
                   <option value="Student">Student</option>
                   <option value="Parent">Parent</option>
                 </select>
               </div>
-
-              {/* <div class="flex justify-between w-full py-4">
-                <span class="font-bold text-md">Forgot password</span>
-              </div> */}
-
               <button
                 disabled={isLoading}
-                className="w-full  border border-violet-400 mt-2 text-violet-400  bg-gray-300 bg-opacity-30 p-2 rounded-lg mb-2   hover:border hover:border-violet-400"
+                className="w-full bg-cyan-600 text-white p-2 rounded-lg mb-2 mt-2 hover:text-white hover:border hover:bg-cyan-400"
               >
                 Sign Up
               </button>
 
               {error && <div className="error">{error}</div>}
-              {/* <button className="w-full bg-gradient-to-r from-blue-500 to-green-400 text-white text-md p-2 rounded-lg mb-2 hover:bg-violet-400 hover:text-white">
-                <FaGoogle className="w-6 h-6 inline mr-2" />
-                Sign in with Google
-              </button> */}
+
               <div class="text-center text-gray-400 mb-2">
                 Already Have An Account?
                 <Link to="/login" className="font-bold text-black">
                   Log In
                 </Link>
-                {/* <span class="font-bold text-black">Sign up for free</span> */}
               </div>
             </form>
             {/* right side */}
@@ -180,15 +148,6 @@ const Signup = () => {
               alt="img"
               class="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
             />
-            {/* <!-- text on image  --> */}
-            {/* <div
-            class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"
-          >
-            <span class="text-white text-xl"
-              >We've been uesing Untitle to kick"<br />start every new project
-              and can't <br />imagine working without it."
-            </span>
-          </div> */}
           </div>
         </div>
       </div>
@@ -213,3 +172,16 @@ export default Signup;
                   )}
                 </select> */
 }
+ {
+   /* <!-- text on image  --> */
+ }
+ {
+   /* <div
+            class="absolute hidden bottom-10 right-6 p-6 bg-white bg-opacity-30 backdrop-blur-sm rounded drop-shadow-lg md:block"
+          >
+            <span class="text-white text-xl"
+              >We've been uesing Untitle to kick"<br />start every new project
+              and can't <br />imagine working without it."
+            </span>
+          </div> */
+ }

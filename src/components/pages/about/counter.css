@@ -4,7 +4,7 @@
     /* color: #7a5d85; */
 }
 .count_contain{
-    height: 8rem;
+    height: full;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */

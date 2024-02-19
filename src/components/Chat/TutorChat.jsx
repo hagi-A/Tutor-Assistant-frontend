@@ -1,18 +1,21 @@
 import React from "react";
 import { ChatEngine } from "react-chat-engine";
 import ChatFeed from "./ChatFeed";
+import axios from 'axios'
 import LoginForm from "./LoginForm";
 import "./chat.css";
 import Sidebar from "../tutor/tutorDashboard/Sidebar";
 import TutorDashboard from "../tutor/tutorDashboard/TutorDasboard";
 import { useTutorContext } from "../../hooks/useTutorContext";
 
-const projectID = "d3cdd6b5-ceeb-4609-b4d2-3442228d8ae6";
+const projectID = "4c56144b-fd62-47d4-9ea4-95026ef5b201";
 
 const TutorChat = () => {
  
    const { tutor } = useTutorContext();
-   const userName = tutor ? tutor.tutor.username : null;
+  const userName = tutor ? tutor.tutor.username : null;
+  const userEmail = tutor ? tutor.tutor.email : null;
+  
    if (
      !localStorage.getItem("username") ||
      userName !== localStorage.getItem("username")

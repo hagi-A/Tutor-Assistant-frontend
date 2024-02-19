@@ -12,7 +12,7 @@ const Home = () => {
 
       <div className="flex flex-col items-center  min-h-screen mt-96">
         {/* Add appropriate margin to space them out */}
-        <div className="mt-96">
+        <div className="mt-96 bg-cyan-800">
           <AboutCard />
         </div>
 

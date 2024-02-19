@@ -26,7 +26,7 @@ const Hero = () => {
               to="/contactUs"
               className="bg-cyan-600 text-white rounded-full shadow-sm shadow-cyan-700 font-semibold md:text-sm text-xs tracking-wide md:px-9 px-7 py-3"
             >
-              <button>{t("heroBtn1")}</button>
+             {t("heroBtn1")}
             </Link>
             <Link
               to="/login"

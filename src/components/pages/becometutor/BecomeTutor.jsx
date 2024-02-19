@@ -65,7 +65,7 @@ const BecomeTutor = () => {
             <div>
               <Link
                 to="/tutorRegistration"
-                className=" ml-4 cursor-pointer font-sans border border-slate-300 text-white bg-transparent rounded-full font-light text-2xl md:text-sm tracking-wide md:px-9 px-7 py-3"
+                className=" ml-4 cursor-pointer font-sans border border-slate-300 text-white bg-transparent rounded-full font-light text-2xl md:text-sm  md:px-9 px-7 py-3"
               >
                 <button >
                   Become a Tutor

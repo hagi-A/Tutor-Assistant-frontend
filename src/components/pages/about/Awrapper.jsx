@@ -10,7 +10,7 @@ const Awrapper = () => {
 
   return (
            <>
-              <div className="countup_contain m-4">
+              <div className="countup_contain">
                 <p className="headerText one font-sans mb-3 text-teal-500">{t("progressFig")}</p>
                 <div style={{ width: "10rem" }} className="divider" />
                 <div className="counter-container mt-1 ">

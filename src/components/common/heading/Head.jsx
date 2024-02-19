@@ -50,7 +50,7 @@ const Head = () => {
             <i className="fab fa-youtube icon"></i>
           </div>
           <nav>
-            {user && (
+            {/* {user && (
               <div className="flex items-center ml-9">
                 {user.profileImage ? (
                   <>
@@ -81,8 +81,8 @@ const Head = () => {
                   {t("logoutButton")}
                 </button>
               </div>
-            )}
-            {tutor && (
+            )} */}
+            {/* {tutor && (
               <>
                 <img
                   src={`http://localhost:9999/api/files/images/${tutor.tutor.selectedImages}`}
@@ -91,15 +91,16 @@ const Head = () => {
                 />
                 <span className="text-white font-semibold">
                   {tutor.tutor.firstName}
-                </span>
-                <button
-                  onClick={handleClick}
-                  className="ml-9 text-light border border-solid border-white text-white px-4 py-2 rounded hover:border-indigo-500 hover:text-violet-500 transition duration-300 ease-in-out "
-                >
-                  {t("logoutButton")}
-                </button>
-              </>
+                </span> */}
+            {user && tutor && (
+              <button
+                onClick={handleClick}
+                className="ml-9 text-light border border-solid border-red-500 text-red-500 px-4 py-2 rounded hover:bg-red-500 hover:text-white transition duration-300 ease-in-out "
+              >
+                {t("logoutButton")}
+              </button>
             )}
+            {/* )} */}
             {!user && !tutor && (
               <Link
                 to="/login"

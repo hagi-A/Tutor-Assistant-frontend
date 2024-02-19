@@ -123,7 +123,10 @@ const ViewTutorRequest = () => {
           </div>
           <div className=" pt-6 px-6 min-h-screen bg-slate-200 ">
             <div className="flex justify-between">
-              <Breadcrumb pageName="Tutors /" subPageName="View Tutor Request" />
+              <Breadcrumb
+                pageName="Tutors /"
+                subPageName="View Tutor Request"
+              />
               {/* <button className="flex justify-between border border-[#745B83] text-white text-lg font-light bg-[#745B83] p-2 rounded-full ">
                                 <IoIosAddCircleOutline className="text-2xl mr-2" />
                                 <Link to={`/`}>Add Tutor</Link>
@@ -140,9 +143,7 @@ const ViewTutorRequest = () => {
                     >
                       <h3 className="text-lg font-semibold">{`Gender: ${tutorRequest.gender}`}</h3>
                       <p className="text-lg font-semibold">{`Grade: ${tutorRequest.grade}`}</p>
-                      <p className="text-lg font-semibold">{`Courses: ${tutorRequest.courses.join(
-                        ", "
-                      )}`}</p>
+                      <p className="text-lg font-semibold">{`Courses: ${tutorRequest.selectedPackages}`}</p>
                       <p className="text-lg font-semibold">{`Profession: ${tutorRequest.profession}`}</p>
                     </div>
                   ))

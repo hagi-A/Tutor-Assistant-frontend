@@ -43,7 +43,7 @@ const Sidebar = () => {
               <div className="flex items-center gap-[10px]">
                 <FaUser className="text-white text-2xl" />
                 <Link
-                  to=""
+                  to="/myChild"
                   className="text-md leading-[20px] font-light text-white"
                 >
                   My Child

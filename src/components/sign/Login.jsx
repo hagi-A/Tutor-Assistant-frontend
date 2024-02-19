@@ -66,6 +66,7 @@ const Login = () => {
       
       if (role === "Parent") {
         navigate("/parent");
+        console.log("ff isin");
       } else if (role === "Student") {
         console.log("tt isin");
         navigate("/student");

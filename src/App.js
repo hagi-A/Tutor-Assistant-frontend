@@ -57,7 +57,11 @@ import Quizzes from "./components/tutor/tutorDashboard/quizzes/Quizzes";
 import Assignments from "./components/tutor/tutorDashboard/assignments/Assignments";
 import TutorChat from "./components/Chat/TutorChat";
 import UserChat from "./components/Chat/UserChat";
+import ParentChat from "./components/Chat/ParentChat";
 import LoginForm from "./components/Chat/LoginForm";
+import ChapaPayment from "./components/payment/ChapaPayment";
+import Payment from "./components/student/studentDashboard/payment/Payment";
+import MyChild from "./components/pages/parent/pages/mychild/MyChild";
 
 const App = () => {
   // const { user } = useAuthContext()
@@ -106,6 +110,7 @@ const App = () => {
 
           <Route path="/chatPage" element={<Dashboard />} />
           <Route path="/profilePage" element={<ProfilePage />} />
+          <Route path="/payment" element={<Payment />} />
 
           <Route path="/courses/:id" element={<Courses />} />
           <Route path="/addCourse" element={<AddCourse />} />
@@ -128,7 +133,10 @@ const App = () => {
           <Route path="/assignment" element={<Assignments />} />
           <Route path="/tutorChat" element={<TutorChat />} />
           <Route path="/userChat" element={<UserChat />} />
+          <Route path="/parentChat" element={<ParentChat />} />
           <Route path="/chatLogin" element={<LoginForm />} />
+
+          <Route path="/myChild" element={<MyChild />} />
 
           {/* //   {/* <Route path="/chats/sidebar" element={<SideDrawer />} /> */}
           {/* //     {/* <Route path='/admin' element={<App />} /> */}

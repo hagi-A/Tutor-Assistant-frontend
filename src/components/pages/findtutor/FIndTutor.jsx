@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import "./findtutor.css";
 import Header from "../../common/heading/Header";
-// import Title from "../common/title/Title";
-// import { FaArrowRight } from "react-icons/fa";
+import Title from "../../common/title/Title";
+import { FaArrowRight } from "react-icons/fa";
 import AvailableTutors from "./AvailableTutors";
 import FindTutorNote from "./FindTutorNote.";
 import SearchBar from "./SearchBar"; // Import the SearchBar component
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import axios from "axios";
 import Dashboard from "../../chatPage/components/Dashboard";
 import { FaComment } from "react-icons/fa";
 import Chat from "../../Chat/TutorChat";
 
 function FindTutor() {
+  const { t } = useTranslation();
   const [searchResults, setSearchResults] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const navigate = useNavigate();
@@ -66,29 +68,46 @@ function FindTutor() {
 
       <section className="bg-image bg-cover bg-fixed h-screen bg-no-repeat ">
         <Header />
-        <section className="bg-cover bg-fixed  top-0 left-0 z-0 w-full h-screen pt-20 pr-50 text-white">
-          <div className="container">
-            <div>
-              {/* // eslint-disable-next-line no-undef */}
-              {/* <SearchBar onSelectUser={handleSelectUser} /> */}
-              {/* <Title  title='"EMPOWERING LEARNING BEYOND THE CLASSROOM"'/> */}
-              {/* <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste necessitatibus dolorum pariatur, repellat aperiam sequi eos magni facere sunt, 
-                distinctio sapiente quasi fugiat illum quia nulla laborum doloremque, expedita nam.</p> */}
-              {/* <div className=" mt-40"> 
-                  <button className='primary-btn'>GET STARTED NOW <FaArrowRight /></button>
-                  <button>Find a Tutor NOW <FaArrowRight /></button>
-                </div> */}
+        <section className=" bg-cover bg-fixed  top-0 left-0 z-0 w-full h-screen pt-20 pr-50 text-white">
+          <div className="flex justify-between">
+            <div className="container">
+              <div>
+                {/* // eslint-disable-next-line no-undef */}
+                {/* <SearchBar onSelectUser={handleSelectUser} /> */}
+                <SearchBar />
+                {/* <Title title='"EMPOWERING LEARNING BEYOND THE CLASSROOM"' />
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste
+                necessitatibus dolorum pariatur, repellat aperiam sequi eos
+                magni facere sunt, distinctio sapiente quasi fugiat illum quia
+                nulla laborum doloremque, expedita nam.
+              </p>{" "}
+              {/*  */}
+                {/* <div className=" mt-40">
+                <button className="primary-btn">
+                  GET STARTED NOW <FaArrowRight />
+                </button>
+                <button>
+                  Find a Tutor NOW <FaArrowRight />
+                </button> 
+              </div> */}
+              </div>
             </div>
           </div>
-          <Link
-            to={signupURL}
-            className=" ml-20 cursor-pointer font-sans border border-cyan-800 text-white bg-transparent rounded-full font-light text-2xl md:text-sm tracking-wide md:px-9 px-7 py-3"
-          >
-            <button>Find Tutor Now</button>
-          </Link>
+          <div className="mt-20 flex ml-24">
+            <button>
+              <Link
+                to={signupURL}
+                className=" ml-16  font-sans border border-cyan-800 text-white bg-transparent rounded-full font-light text-2xl md:text-sm md:px-9 px-7 py-3"
+              >
+                {t("findTutorNow")}
+              </Link>
+            </button>
+          </div>
         </section>
+
         <div className="flex justify-end">
-          <button
+          {/* <button
             className="bg-cyan-700 w-16  float-right text-white rounded-full p-2 fixed bottom-4 right-4"
             onClick={toggleChat}
           >
@@ -101,8 +120,8 @@ function FindTutor() {
           /> */}
           {/* {isChatOpen && <Dashboard toggleChat={toggleChat} />}
           <Dashboard isOpen={isChatOpen} toggleChat={toggleChat} /> */}
-          {isChatOpen && <Chat toggleChat={toggleChat} />}
-          <Chat isOpen={isChatOpen} toggleChat={toggleChat} />
+          {/* {isChatOpen && <Chat toggleChat={toggleChat} />}
+          <Chat isOpen={isChatOpen} toggleChat={toggleChat} /> */}
         </div>
         <div className="">
           <FindTutorNote />

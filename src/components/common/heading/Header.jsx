@@ -8,6 +8,8 @@ import { FaBars } from "react-icons/fa";
 import { useLocation } from 'react-router-dom';
 import { FaInstagram, FaFacebook, FaTwitter, FaYoutube } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
+import SupportEngine from '../../supportChat/SupportEngine/Index';
+// import SupportEngine from '../../supportChat/SupportEngine/index';
 
 
 
@@ -62,7 +64,8 @@ const Header = () => {
             {click ? <HiOutlineX /> : <FaBars />}
           </button>
          </nav>
-         {/* <a onClick={this.scrollToTop}>To the top!</a> */}
+        {/* <a onClick={this.scrollToTop}>To the top!</a> */}
+        <SupportEngine />
        </header>
     </>
   )

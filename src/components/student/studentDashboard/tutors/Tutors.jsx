@@ -115,8 +115,8 @@ const Tutors = () => {
                               <div className="p-4  rounded-lg bg-slate-50 border hover:border-[#745B83]">
                                 <div className="flex justify-between mb-4 ">
                                   <img
-                                    src={`http://localhost:9999/api/files/images/${tutor.selectedImages}`}
-                                    alt={tutor.firstName}
+                                    // src={`http://localhost:9999/api/files/images/${tutor.selectedImages}`}
+                                    // alt={tutor.firstName}
                                     className="h-16 w-16 rounded-full bg-gray-500"
                                   />
                                   <h3 className="text-2xl lg:text-3xl font-light text-center lg:leading-9">
@@ -127,6 +127,7 @@ const Tutors = () => {
                                   <FaRegBell />
 
                                   {tutors.map((tutor) =>
+                             
                                     tutor.sentRequest ? (
                                       <div
                                         key={tutor._id}

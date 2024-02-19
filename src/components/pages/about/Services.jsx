@@ -55,23 +55,21 @@ const Services = () => {
   return (
     <>
       <div className="mt-16 max-w-full md:py:[80] py-5 mx-auto font-sans">
-        <h1 className="text-4xl text-center font-sans">Our Services</h1>
+        <h1 className="text-4xl text-center font-sans text-slate-100">Our Services</h1>
       </div>
-      <div className= "bg-slate-200 max-w-full mx-auto py-[30px]">
-        <div className="grid grid-cols-4 sm:grid-cols-1  gap-6  p-4 text-center text-cyan-700">
-        
+      <div className="bg-slate-200 max-w-full mx-auto py-[30px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-4  gap-4  p-4 text-center text-cyan-700">
           {services.map((service) => (
-             <div className=" p-3 border border-cyan-900 shadow-xl">
-            <div key={service.title}>
-              <div className="text-3xl  flex justify-center text-teal-600 animate-bounce">
-                {service.icon}
+            <div className=" p-3 border border-cyan-900 shadow-xl">
+              <div key={service.title}>
+                <div className="text-3xl  flex justify-center text-teal-600 animate-bounce">
+                  {service.icon}
+                </div>
+                <h3 className="text-2xl text-black py-2">{service.title}</h3>
+                <p className="text-gray-500">{service.desc}</p>
               </div>
-              <h3 className="text-2xl text-black py-2">{service.title}</h3>
-              <p className="text-gray-500">{service.desc}</p>
-            </div>
             </div>
           ))}
-          
         </div>
       </div>
     </>

@@ -124,6 +124,19 @@ const Sidebar = () => {
             </div>
             <FaChevronRight className="text-white" />
           </div>
+          <div className="flex items-center justify-between gap-[10px] py-[15px] cursor-pointer">
+            <div className="flex items-center gap-[10px]">
+              <FaUserCheck className="text-white text-2xl" />
+
+              <Link
+                to="/payment"
+                className="text-md leading-[20px] font-light text-white"
+              >
+                payment
+              </Link>
+            </div>
+            <FaChevronRight className="text-white" />
+          </div>
         </div>
       </>
     </div>

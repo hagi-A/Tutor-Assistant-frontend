@@ -38,37 +38,73 @@ const TutorRequestForm = ({ isOpen, onClose }) => {
   //   "Amharic",
   // ];
   const coursesByGradeLevel = {
-    // G1: ["English", "Amharic", "Maths", "Science"],
-    // G2: ["English", "Amharic", "Maths", "Science"],
-    // G3: ["English", "Amharic", "Maths", "Science"],
-    // G4: ["English", "Amharic", "Maths", "Science"],
-    // G5: ["English", "Amharic", "Maths", "Science"],
-    // G6: ["English", "Amharic", "Maths", "Science"],
-    G7: [
-      "Package 1: English, Amharic, Social Studies, Science",
-      "Package 2: Physics, Biology, Chemistry, Maths",
-    ],
-    G8: [
-      "Package 1: English, Amharic, Social Studies, Science",
-      "Package 2: Physics, Biology, Chemistry, Maths",
-    ],
-    G9: [
-      "Package 1: English, Amharic, Geography, History ",
-      "Package 2: Maths, Physics, Biology, Chemistry",
-    ],
-    G10: [
-      "Package 1: English, Amharic, Geography, History ",
-      "Package 2: Maths, Physics, Biology, Chemistry",
-    ],
-    G11: [
-      "Natural Package: English, Amharic, Maths, Science, Physics, Biology, Chemistry",
-      "Social Package: English, Amharic, Maths, Geography, History, Economics, Business",
-    ],
-    G12: [
-      "Natural Package: English, Amharic, Maths, Science, Physics, Biology, Chemistry",
-      "Social Package: English, Amharic, Maths, Geography, History, Economics, Business",
-    ],
-    College: ["C++ Programming", "Java", "Phyton"],
+    G1: {
+      G1Package: ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G2: {
+      G2Package: ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G3: {
+      G3Package: ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G4: {
+      G4Package: ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G5: {
+      G5Package: ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G6: {
+      G6Package: ["English", "Amharic", "Social Studies", "Science"],
+    },
+    G7: {
+      G7Package_1: ["English", "Amharic", "Social Studies", "Science"],
+      G7Package_2: ["Physics", "Biology", "Chemistry", "Maths"],
+    },
+    G8: {
+      G8Package_1: ["English", "Amharic", "Social Studies", "Science"],
+      G8Package_2: ["Physics", "Biology", "Chemistry", "Maths"],
+    },
+    G9: {
+      G9Package_1: ["English", "Amharic", "Geography", "History"],
+      G9Package_2: ["Maths", "Physics", "Biology", "Chemistry"],
+    },
+    G10: {
+      G10Package_1: ["English", "Amharic", "Geography", "History"],
+      G10Package_2: ["Maths", "Physics", "Biology", "Chemistry"],
+    },
+    G11: {
+      G11Natural: ["English", "Maths", "Physics", "Biology", "Chemistry"],
+      G11Social: [
+        "English",
+        "Maths",
+        "Geography",
+        "History",
+        "Economics",
+        "Business",
+      ],
+    },
+    G12: {
+      G12Natural: [
+        "English",
+        "Amharic",
+        "Maths",
+        "Physics",
+        "Biology",
+        "Chemistry",
+      ],
+      G12Social: [
+        "English",
+        "Amharic",
+        "Maths",
+        "Geography",
+        "History",
+        "Economics",
+        "Business",
+      ],
+    },
+    College: {
+      CS: ["C++ Programming", "Java", "Python"],
+    },
   };
 
   const handleCheckboxChange = (course) => {

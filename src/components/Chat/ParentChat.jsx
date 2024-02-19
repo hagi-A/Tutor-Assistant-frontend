@@ -3,8 +3,8 @@ import { ChatEngine } from "react-chat-engine";
 import ChatFeed from "./ChatFeed";
 import UserLoginForm from "./UserLoginForm";
 import "./userChat.css";
-import Dashboard from "../student/sidebar/Dashboard";
-import Sidebar from "../student/sidebar/Sidebar";
+import Dashboard from "../pages/parent/dashboard/Dashboard";
+import Sidebar from "../pages/parent/dashboard/Sidebar";
 import { useAuthContext } from "../../hooks/useAuthContext";
 // import { useTutorContext } from "../../hooks/useTutorContext";
 
@@ -12,7 +12,7 @@ const projectID = "4c56144b-fd62-47d4-9ea4-95026ef5b201";
 
 const UserChat = () => {
   const { user } = useAuthContext();
-const userName = user ? user.user.username : null;
+  const userName = user ? user.user.username : null;
   if (
     !localStorage.getItem("studentUsername") ||
     userName !== localStorage.getItem("studentUsername")
@@ -20,7 +20,7 @@ const userName = user ? user.user.username : null;
     return <UserLoginForm />;
   }
 
-//  if (!localStorage.getItem("studentUsername")) return <UserLoginForm />;
+  //  if (!localStorage.getItem("studentUsername")) return <UserLoginForm />;
   return (
     <div className="flex">
       <div className="basis-[12%] h-[100vh]">

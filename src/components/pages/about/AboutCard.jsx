@@ -64,7 +64,7 @@ const AboutCard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-cyan-800 max-w-full mt-20">
+        <div className="bg-cyan-800 max-w-full max-h-full ">
           <Awrapper />
         </div>
         {/* <AboutInfo /> */}

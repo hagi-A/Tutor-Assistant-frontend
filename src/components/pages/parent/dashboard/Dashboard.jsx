@@ -19,15 +19,17 @@ const Dashboard = () => {
       <div className="flex items-center gap-4 relative">
         <div className="flex items-center gap-6 border-r-2 border-[#29644c] pr-6">
           <FaRegBell />
-          <FaEnvelope />
+          <Link to="/parentChat">
+            <FaEnvelope />
+          </Link>
         </div>
         <div className="flex items-center gap-4 relative">
           {user && (
-            <div>
+            <div className="flex items-center justify-between">
               <p>
-                {user.user.firstName} {user.lastName}
+                {user.user.firstName} {user.user.lastName}
               </p>
-              <div className="h-[50px] w-[50px] rounded-full bg-[#29644c] cursor-pointer flex items-center justify-center relative ">
+              <div className="ml-4 h-[50px] w-[50px] rounded-full bg-[#29644c] cursor-pointer flex items-center justify-center relative ">
                 <Link to="/profilePage">
                   <img
                     // src={`http://localhost:9999/api/files/images/${user.selectedImages}`}
