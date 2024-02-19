@@ -9,16 +9,23 @@ const Modal = () => {
   const [password, setPassword] = useState("");
   // const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  function getOrCreateUser(callback) {
+  function getOrCreateUser(username, password, privateKey, callback) {
     axios
       .put(
         "https://api.chatengine.io/users/",
         { username: username, secret: password },
-        // { username: email, email: email, secret: email },
         { headers: { "Private-Key": privateKey } }
       )
-      .then((r) => callback(r.data))
-      .catch((e) => console.log("Get or create user error", e));
+      // .then((r) => callback(r.data))
+      // .catch((e) => console.log("Get or create user error", e));
+      .then((response) => {
+        const userData = response.data;
+        callback(null, userData); // Call the callback with user data and no error
+      })
+      .catch((error) => {
+        console.log("Get or create user error", error);
+        callback(error, null); // Call the callback with an error and no user data
+      });
   }
 
   const handleSubmit = async (e) => {
@@ -38,7 +45,7 @@ const Modal = () => {
       //     localStorage.setItem("username", username);
       //     localStorage.setItem("password", password);
       //     window.location.reload();
-      //     console.log("User data:", userData);
+      //     
       //     setError("");
       //   });
       // Call getOrCreateUser and handle the response
@@ -51,16 +58,17 @@ const Modal = () => {
            axios.get("https://api.chatengine.io/chats", {
              headers: authObject,
            });
-         }
-      // getOrCreateUser((user) => {
-        // props.setUser && props.setUser(user);
-        localStorage.setItem("username", username);
-        localStorage.setItem("password", password);
+           //  }
+      
+           localStorage.setItem("username", username);
+           localStorage.setItem("password", password);
 
-        window.location.reload();
-        alert("Successful! Happy Chatting");
-        console.log("in try");
-        setError("");
+           window.location.reload();
+           console.log("User data:", userData);
+           alert("Successful! Happy Chatting");
+           console.log("in try");
+           setError("");
+         }
       // });
 
       //
